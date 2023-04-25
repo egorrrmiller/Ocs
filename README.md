@@ -47,3 +47,9 @@
 2. Из за данного пункта сделал в базе доп таблицу Deleted, которая бы помечала удаленные заказы, но смысла в этом не вижу<br/>
 ![image](https://user-images.githubusercontent.com/44502536/234329730-837ca37e-e389-4be5-bdb4-81920a8580d3.png)
 
+3. Похожие тестовые задания, которые я выполнял: 
+- https://github.com/egorrrmiller/Modsen
+- https://github.com/egorrrmiller/kaspel (здесь Many-To-Many)
+
+
+
