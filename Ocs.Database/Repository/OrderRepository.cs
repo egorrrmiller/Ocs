@@ -103,7 +103,6 @@ public class OrderRepository : IOrderRepository
         cancellationToken.ThrowIfCancellationRequested();
 
         var order = await _context.Orders.AsNoTracking()
-            .Include(lines => lines.Lines)
             .FirstOrDefaultAsync(orderId => orderId.Id == id, cancellationToken);
 
         if (order == null || order.Deleted)
