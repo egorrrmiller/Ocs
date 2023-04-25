@@ -10,15 +10,21 @@ public class ProductController : ControllerBase
 {
     private readonly IProductRepository _productRepository;
 
-    public ProductController(IProductRepository productRepository)
-    {
-        _productRepository = productRepository;
-    }
+    public ProductController(IProductRepository productRepository) => _productRepository = productRepository;
 
     [HttpGet]
     public async Task<IActionResult> GetAll() => Ok(await _productRepository.GetProductsAsync());
-    
-    
+
     [HttpPost]
-    public async Task<IActionResult> AddProduct(ProductDto productDto) => Ok(await _productRepository.AddProductAsync(productDto));  
+    public async Task<IActionResult> AddProduct(ProductDto productDto)
+    {
+        var product = await _productRepository.AddProductAsync(productDto);
+
+        if (product == null)
+        {
+            return BadRequest("Товар уже существует");
+        }
+
+        return Ok(product);
+    }
 }

@@ -10,19 +10,20 @@ public class ProductRepository : IProductRepository
 {
     private readonly OcsContext _context;
 
-    public ProductRepository(OcsContext context)
-    {
-        _context = context;
-    }
+    public ProductRepository(OcsContext context) => _context = context;
 
-    public async Task<List<Product>> GetProductsAsync()
-    {
-        return await _context.Products.ToListAsync();
-    }
+    public async Task<List<Product>> GetProductsAsync() => await _context.Products.ToListAsync();
 
-    public async Task<Product> AddProductAsync(ProductDto productDto)
+    public async Task<Product?> AddProductAsync(ProductDto productDto)
     {
-        var product = await _context.Products.AddAsync(new Product()
+        var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == productDto.Id);
+
+        if (productExists == null)
+        {
+            return null;
+        }
+
+        var product = await _context.Products.AddAsync(new()
         {
             Id = productDto.Id,
             Qty = productDto.Qty
