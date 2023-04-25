@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using Ocs.Domain.Enums;
 
 namespace Ocs.Domain.Models;
@@ -11,9 +11,13 @@ public class Order
 
     public DateTime Created { get; set; }
 
-    public ICollection<Product> Lines { get; set; }
+    public List<Product> Lines { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     [JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
     public bool Deleted { get; set; }
+
+    [JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
+    public ICollection<OrderProduct>? OrderProducts { get; set; }
 }

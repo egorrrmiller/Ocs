@@ -8,7 +8,9 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        builder.HasKey(id => id.Id);
+        builder.HasMany(lines => lines.Lines)
+            .WithMany(orders => orders.Orders)
+            .UsingEntity<OrderProduct>();
 
         builder.Property(status => status.Status)
             .IsRequired();

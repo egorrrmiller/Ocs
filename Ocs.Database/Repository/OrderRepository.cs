@@ -3,6 +3,7 @@ using Ocs.Database.Context;
 using Ocs.Database.Repository.Interfaces;
 using Ocs.Domain.Dto;
 using Ocs.Domain.Enums;
+using Ocs.Domain.Models;
 
 namespace Ocs.Database.Repository;
 
@@ -15,13 +16,20 @@ public class OrderRepository : IOrderRepository
     public async Task<OrderDtoResponse?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var order = await _context.Orders.AsNoTracking()
-            .Include(lines => lines.Lines)
+            .Include(lines => lines.OrderProducts)
             .FirstOrDefaultAsync(orderId => orderId.Id == id, cancellationToken);
 
         if (order == null || order.Deleted)
         {
             return null;
         }
+
+        order.Lines = order.OrderProducts.Select(lines => new Product
+            {
+                Id = lines.ProductId,
+                Qty = lines.Qty
+            })
+            .ToList();
 
         return new(order.Id, order.Status.ToString(), order.Created.ToString("yyyy-MM-dd hh:mm.s"),
             order.Lines);
@@ -31,7 +39,10 @@ public class OrderRepository : IOrderRepository
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (orderDto.Lines.Any(count => count.Qty < 1))
+        var product = await _context.Products.AsNoTracking()
+            .ToListAsync(cancellationToken: cancellationToken);
+
+        if (orderDto.Lines.Any(count => count.Qty < 1) && orderDto.Lines.Any(productId => !product.Exists(x => x.Id == productId.Id)))
         {
             throw new ArgumentException("Количество товаров не должно быть меньше одного");
         }
@@ -39,14 +50,20 @@ public class OrderRepository : IOrderRepository
         var order = await _context.Orders.AddAsync(new()
         {
             Id = orderDto.Id,
-            Status = OrderStatus.New,
-            Lines = orderDto.Lines
+            Status = OrderStatus.New
         }, cancellationToken);
+
+        await _context.OrderProducts.AddRangeAsync(orderDto.Lines.Select(productId => new OrderProduct
+        {
+            OrderId = orderDto.Id,
+            ProductId = productId.Id,
+            Qty = productId.Qty
+        }), cancellationToken);
 
         await _context.SaveChangesAsync(cancellationToken);
 
         return new(order.Entity.Id, order.Entity.Status.ToString(), order.Entity.Created.ToString("yyyy-MM-dd hh:mm.s"),
-            order.Entity.Lines);
+            orderDto.Lines);
     }
 
     public async Task<OrderDtoResponse?> UpdateOrderAsync(Guid id, OrderDtoUpdate orderDto, CancellationToken cancellationToken = default)
