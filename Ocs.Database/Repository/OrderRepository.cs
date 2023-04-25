@@ -118,7 +118,6 @@ public class OrderRepository : IOrderRepository
 
         order.Deleted = true;
         _context.Orders.Update(order);
-        _context.Products.RemoveRange(order.Lines);
 
         await _context.SaveChangesAsync(cancellationToken);
 
