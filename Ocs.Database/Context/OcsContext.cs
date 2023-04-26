@@ -17,6 +17,7 @@ public class OcsContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new OrderConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

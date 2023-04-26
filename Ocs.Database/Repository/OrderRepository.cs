@@ -42,7 +42,17 @@ public class OrderRepository : IOrderRepository
         var product = await _context.Products.AsNoTracking()
             .ToListAsync(cancellationToken: cancellationToken);
 
-        if (orderDto.Lines.Any(count => count.Qty < 1) && orderDto.Lines.Any(productId => !product.Exists(x => x.Id == productId.Id)))
+        orderDto.Lines.Any(productId =>
+        {
+            if (!product.Exists(x => x.Id == productId.Id))
+            {
+                throw new ArgumentException($"Товара с Id: {productId} не существует");
+            }
+
+            return true;
+        });
+        
+        if (orderDto.Lines.Any(count => count.Qty < 1))
         {
             throw new ArgumentException("Количество товаров не должно быть меньше одного");
         }
