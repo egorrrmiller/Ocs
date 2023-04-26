@@ -7,5 +7,5 @@ public interface IProductRepository
 {
     Task<List<Product>> GetProductsAsync();
 
-    Task<Product?> AddProductAsync(ProductDto productDto);
+    Task<Product?> AddProductAsync(ProductDtoRequest productDto);
 }

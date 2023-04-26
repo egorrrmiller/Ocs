@@ -24,18 +24,14 @@ public class OrderRepository : IOrderRepository
             return null;
         }
 
-        order.Lines = order.OrderProducts.Select(lines => new Product
-            {
-                Id = lines.ProductId,
-                Qty = lines.Qty
-            })
+        var orderLines = order.OrderProducts.Select(lines => new ProductDtoResponse(lines.ProductId, lines.Qty))
             .ToList();
 
         return new(order.Id, order.Status.ToString(), order.Created.ToString("yyyy-MM-dd hh:mm.s"),
-            order.Lines);
+            orderLines);
     }
 
-    public async Task<OrderDtoResponse> AddOrderAsync(OrderDto orderDto, CancellationToken cancellationToken = default)
+    public async Task<OrderDtoResponse> AddOrderAsync(OrderDtoRequest orderDto, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -105,7 +101,7 @@ public class OrderRepository : IOrderRepository
         await _context.SaveChangesAsync(cancellationToken);
 
         return new(orderUpdate.Entity.Id, orderUpdate.Entity.Status.ToString(), orderUpdate.Entity.Created.ToString("yyyy-MM-dd hh:mm.s"),
-            orderUpdate.Entity.Lines);
+            orderDto.Lines);
     }
 
     public async Task<bool> DeleteOrderAsync(Guid id, CancellationToken cancellationToken = default)

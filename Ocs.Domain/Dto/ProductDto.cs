@@ -1,3 +1,5 @@
 namespace Ocs.Domain.Dto;
 
-public record ProductDto(Guid Id, int Qty);
+public record ProductDtoRequest(Guid Id);
+
+public record ProductDtoResponse(Guid Id, int Qty);

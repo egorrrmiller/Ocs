@@ -31,7 +31,7 @@ namespace Ocs.Database.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 4, 26, 7, 22, 37, 86, DateTimeKind.Utc).AddTicks(3352));
+                        .HasDefaultValue(new DateTime(2023, 4, 26, 20, 30, 26, 97, DateTimeKind.Utc).AddTicks(4450));
 
                     b.Property<bool>("Deleted")
                         .ValueGeneratedOnAdd()
@@ -70,9 +70,6 @@ namespace Ocs.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Qty")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -80,253 +77,203 @@ namespace Ocs.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("910d8112-94c3-4d4f-b5d0-1ae36857a74f"),
-                            Qty = 1000
+                            Id = new Guid("509ec21d-b270-4c3d-8370-ad3efeeafb9a")
                         },
                         new
                         {
-                            Id = new Guid("d1d3b54b-c6df-4ea8-9c3d-eb2e55ae1804"),
-                            Qty = 1000
+                            Id = new Guid("cb75ed5c-a8c1-4bcd-b76c-d950dc1fd29d")
                         },
                         new
                         {
-                            Id = new Guid("f29c9621-5f1f-4eaf-a01f-2bf77f7e7a8c"),
-                            Qty = 1000
+                            Id = new Guid("8a4f891a-616d-45f0-b090-586d14b49ce2")
                         },
                         new
                         {
-                            Id = new Guid("2580ae71-7148-4352-a546-7deb2c83616b"),
-                            Qty = 1000
+                            Id = new Guid("856a2c3e-8411-474c-a863-b38db6257a5d")
                         },
                         new
                         {
-                            Id = new Guid("5d1196d9-21aa-44f5-989c-d0d990b5034c"),
-                            Qty = 1000
+                            Id = new Guid("00f6c93c-7a95-46fc-943c-47ab80c88b0d")
                         },
                         new
                         {
-                            Id = new Guid("4cc645fc-5c3a-4737-a059-5c9bf8a034cb"),
-                            Qty = 1000
+                            Id = new Guid("218f4d43-d4ce-4f22-825a-8c81bde8dfc0")
                         },
                         new
                         {
-                            Id = new Guid("95679236-2bf3-45d9-a1b3-6063723f6c38"),
-                            Qty = 1000
+                            Id = new Guid("7fdb0f83-c37d-427b-af5a-7bbf107bd55f")
                         },
                         new
                         {
-                            Id = new Guid("62c030fd-0d83-42fb-9e10-90a25d7fd2e8"),
-                            Qty = 1000
+                            Id = new Guid("36f04eb5-7ea6-4cf2-9b3d-01b543b8d07b")
                         },
                         new
                         {
-                            Id = new Guid("bdc4e483-0c61-4b1b-b53c-f4c60ea41895"),
-                            Qty = 1000
+                            Id = new Guid("076468af-d6b8-42dc-9cd2-6c0539c785b9")
                         },
                         new
                         {
-                            Id = new Guid("4467bafa-1870-4a8a-89a1-40fe37f1b23a"),
-                            Qty = 1000
+                            Id = new Guid("a7921430-9e08-44ef-800e-a12c2a5a178c")
                         },
                         new
                         {
-                            Id = new Guid("c59dfb45-6dbe-4daf-8d7c-b11b900e41be"),
-                            Qty = 1000
+                            Id = new Guid("871525aa-3a30-4f60-8870-0ae431c18e02")
                         },
                         new
                         {
-                            Id = new Guid("c0b01f51-21f8-4e2f-b418-eb7645e69826"),
-                            Qty = 1000
+                            Id = new Guid("e898cc64-9593-4735-920e-1b211908c689")
                         },
                         new
                         {
-                            Id = new Guid("e301449b-f9f1-4e4e-9062-b0157bf322ba"),
-                            Qty = 1000
+                            Id = new Guid("962f38b9-d3b5-44f9-a097-1a33244d8007")
                         },
                         new
                         {
-                            Id = new Guid("4645c070-07d7-4068-9f49-11ed038dc2ef"),
-                            Qty = 1000
+                            Id = new Guid("4d4122ef-ffe1-4427-947f-e8f4f83cf4db")
                         },
                         new
                         {
-                            Id = new Guid("edd998c2-0512-431e-a10c-3aa989bdcb8e"),
-                            Qty = 1000
+                            Id = new Guid("fafe3fd8-51af-4437-ba94-dff7105cd2f9")
                         },
                         new
                         {
-                            Id = new Guid("4bde830b-9556-43da-bd40-fa8936067530"),
-                            Qty = 1000
+                            Id = new Guid("eb3c21f5-435c-4ca0-932d-73e5aacdd640")
                         },
                         new
                         {
-                            Id = new Guid("f835e192-cbf1-4941-b2d7-f3cce1a1d83e"),
-                            Qty = 1000
+                            Id = new Guid("248b9aef-cc0f-4817-916d-ddf5352199f2")
                         },
                         new
                         {
-                            Id = new Guid("fa704faa-b21a-4a50-a99e-e928b5868685"),
-                            Qty = 1000
+                            Id = new Guid("fec237f7-da60-4242-b7ac-2eb6d8544c77")
                         },
                         new
                         {
-                            Id = new Guid("2d5b2208-949d-4784-920d-7e81b1660c80"),
-                            Qty = 1000
+                            Id = new Guid("3615b061-772c-4f74-be99-20af97ffce86")
                         },
                         new
                         {
-                            Id = new Guid("755c27ac-546d-4a0a-9dff-9f913a8d76de"),
-                            Qty = 1000
+                            Id = new Guid("8d454183-cad4-4180-9ae0-17d8b3d4ba10")
                         },
                         new
                         {
-                            Id = new Guid("4d5ea812-92b5-4601-be9b-f75932493c49"),
-                            Qty = 1000
+                            Id = new Guid("71296abd-521a-4131-8a77-76770b62d1ae")
                         },
                         new
                         {
-                            Id = new Guid("9352e199-fd21-44d4-8897-428c507118ee"),
-                            Qty = 1000
+                            Id = new Guid("98edb4c9-9ba1-4f20-a3de-c453e7f63f1e")
                         },
                         new
                         {
-                            Id = new Guid("76fa884b-bf81-4ae6-8e49-c0aec22b7c6d"),
-                            Qty = 1000
+                            Id = new Guid("a1247e1d-2d45-48f4-97f5-d9166ed3174b")
                         },
                         new
                         {
-                            Id = new Guid("8f1dd192-15da-4d45-b93c-d4eab6f4c9ae"),
-                            Qty = 1000
+                            Id = new Guid("b671c1a9-599d-4d2b-824e-9c483d59b418")
                         },
                         new
                         {
-                            Id = new Guid("a1dbc78e-1240-4938-b25e-d5f9afcc3328"),
-                            Qty = 1000
+                            Id = new Guid("38dce964-de3b-4d1b-a481-4c59c25f6a45")
                         },
                         new
                         {
-                            Id = new Guid("bbb06749-f595-4024-a07e-9f4dd89ffa88"),
-                            Qty = 1000
+                            Id = new Guid("0ae756c7-3038-4d06-9eef-59fa31357578")
                         },
                         new
                         {
-                            Id = new Guid("5cb923ea-e162-46e0-b200-29f01a0322af"),
-                            Qty = 1000
+                            Id = new Guid("2e66a63b-f746-42e4-977b-763cd02ff9b7")
                         },
                         new
                         {
-                            Id = new Guid("8d0f2f31-62d1-4fde-9d3a-9a6a1b388109"),
-                            Qty = 1000
+                            Id = new Guid("edd32b73-002a-473d-819e-e7acb0dc6463")
                         },
                         new
                         {
-                            Id = new Guid("27edb7b4-6197-4965-8c3e-c7b80374e1b9"),
-                            Qty = 1000
+                            Id = new Guid("092ec219-85f8-4abe-9ea2-3378e56e43b9")
                         },
                         new
                         {
-                            Id = new Guid("1c929cdf-3a03-41f5-8a77-56966d367ccd"),
-                            Qty = 1000
+                            Id = new Guid("201397e4-5fda-401d-8f5a-1d1dd9405c77")
                         },
                         new
                         {
-                            Id = new Guid("92085817-64f1-4463-8477-2bd1d71f4cda"),
-                            Qty = 1000
+                            Id = new Guid("cd718122-9cbb-4962-90e4-7e73eaa1e12a")
                         },
                         new
                         {
-                            Id = new Guid("b61f1006-8b19-46a8-a116-63948b64452a"),
-                            Qty = 1000
+                            Id = new Guid("035dffad-d121-47ef-867d-c1123dfec03e")
                         },
                         new
                         {
-                            Id = new Guid("1d1404a6-6e36-4a7d-89fa-9e47d7cc41d8"),
-                            Qty = 1000
+                            Id = new Guid("33a9b2f0-b85b-4042-b33d-de0d675d911b")
                         },
                         new
                         {
-                            Id = new Guid("d3d4bbd6-d0fd-41ca-b58c-7ed625393134"),
-                            Qty = 1000
+                            Id = new Guid("1afe945c-a7b1-48d8-8157-4c482eed2824")
                         },
                         new
                         {
-                            Id = new Guid("26a39d59-c59c-4e9d-97fd-92eb88b42bcf"),
-                            Qty = 1000
+                            Id = new Guid("b1c5226b-4c44-4268-b660-1693615236b9")
                         },
                         new
                         {
-                            Id = new Guid("37abb814-24a0-454a-bfc2-5e1ff28e1b3a"),
-                            Qty = 1000
+                            Id = new Guid("67978dcd-a62c-4dd5-a6ae-76a841cc4f11")
                         },
                         new
                         {
-                            Id = new Guid("1dc8bd49-5311-4009-a146-8a1e32082349"),
-                            Qty = 1000
+                            Id = new Guid("afbc58dc-7491-4039-86ef-07ceb7246663")
                         },
                         new
                         {
-                            Id = new Guid("dc048231-6a12-4e22-b810-a3d0aac79b96"),
-                            Qty = 1000
+                            Id = new Guid("08f5d07c-5eb2-40cd-8169-37e6c2e5c34d")
                         },
                         new
                         {
-                            Id = new Guid("1dbe376f-f233-4604-b5eb-39e0371eefd0"),
-                            Qty = 1000
+                            Id = new Guid("01707c7d-19cc-45ee-b8a5-7bc2769ee857")
                         },
                         new
                         {
-                            Id = new Guid("fb7b1092-a3f6-41b5-a70f-243b65364990"),
-                            Qty = 1000
+                            Id = new Guid("4e65504d-bc3d-44ca-972d-5c855f7a771c")
                         },
                         new
                         {
-                            Id = new Guid("88e3fb80-3c2b-4e62-a8e4-cb4bf4aabe35"),
-                            Qty = 1000
+                            Id = new Guid("d7cb769d-3e16-43e1-8044-142a229a8514")
                         },
                         new
                         {
-                            Id = new Guid("1ee79ce2-2662-4708-aa9c-7467e1ebbfe0"),
-                            Qty = 1000
+                            Id = new Guid("d78fc202-a650-4cd8-a4e7-6be5c3735311")
                         },
                         new
                         {
-                            Id = new Guid("f9bc1bdf-5dbd-4627-b04a-faa07da93e16"),
-                            Qty = 1000
+                            Id = new Guid("991e3e9d-3541-475c-a0cc-c9408cd96aa7")
                         },
                         new
                         {
-                            Id = new Guid("8e8dd283-2180-4a0f-88e4-87815765aaae"),
-                            Qty = 1000
+                            Id = new Guid("9928d308-b707-43a5-9a0b-2101d977222c")
                         },
                         new
                         {
-                            Id = new Guid("948390e4-9f99-4bbb-a950-8c80a008c689"),
-                            Qty = 1000
+                            Id = new Guid("495be9ae-7f80-4312-b799-06fb5ab19d0b")
                         },
                         new
                         {
-                            Id = new Guid("e0ef3a49-a235-4614-ac8b-a9dd299c62f8"),
-                            Qty = 1000
+                            Id = new Guid("8f04c6e7-67af-44b9-80fe-706ae4bf50ba")
                         },
                         new
                         {
-                            Id = new Guid("92e50e46-ffc0-422d-9ad6-6d267e96eaee"),
-                            Qty = 1000
+                            Id = new Guid("876af8b8-2004-4d99-a30d-872ed682e2a7")
                         },
                         new
                         {
-                            Id = new Guid("bc083f34-f951-47e6-9696-12f2102607ef"),
-                            Qty = 1000
+                            Id = new Guid("206e96fd-19fd-4e36-8a06-f187afc2c6f2")
                         },
                         new
                         {
-                            Id = new Guid("13f0b6bd-44d4-462e-b043-fc798cfcf5fe"),
-                            Qty = 1000
+                            Id = new Guid("8fb4a0ce-22ea-43d6-a384-93f875b001f1")
                         },
                         new
                         {
-                            Id = new Guid("e38780b2-4d84-4359-b76c-f409584f7e6a"),
-                            Qty = 1000
+                            Id = new Guid("b3b6625d-85a2-47d6-88c6-53ba222a2cd4")
                         });
                 });
 

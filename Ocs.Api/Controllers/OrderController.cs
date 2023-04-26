@@ -26,7 +26,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddOrder(OrderDto orderDto)
+    public async Task<IActionResult> AddOrder(OrderDtoRequest orderDto)
     {
         var order = await _orderRepository.AddOrderAsync(orderDto);
 
