@@ -1,4 +1,4 @@
-using Ocs.Domain.Dto;
+using Ocs.Domain.Dto.Order;
 
 namespace Ocs.Database.Repository.Interfaces;
 

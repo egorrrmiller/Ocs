@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ocs.Database.Repository.Interfaces;
-using Ocs.Domain.Dto;
+using Ocs.Domain.Dto.Order;
 
 namespace Ocs.Api.Controllers;
 

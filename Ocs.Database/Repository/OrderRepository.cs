@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Ocs.Database.Context;
 using Ocs.Database.Repository.Interfaces;
-using Ocs.Domain.Dto;
+using Ocs.Domain.Dto.Order;
+using Ocs.Domain.Dto.Product;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
 

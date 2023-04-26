@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Ocs.Domain.Dto;
+namespace Ocs.Domain.Dto.Error;
 
 public class ErrorDto
 {
