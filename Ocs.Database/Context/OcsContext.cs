@@ -6,7 +6,9 @@ namespace Ocs.Database.Context;
 
 public class OcsContext : DbContext
 {
-    public OcsContext(DbContextOptions<OcsContext> options) : base(options) => Database.EnsureCreated();
+    public OcsContext(DbContextOptions<OcsContext> options) : base(options)
+    {
+    }
 
     public DbSet<Order> Orders { get; set; }
 

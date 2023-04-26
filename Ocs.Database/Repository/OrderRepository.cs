@@ -51,7 +51,7 @@ public class OrderRepository : IOrderRepository
 
             return true;
         });
-        
+
         if (orderDto.Lines.Any(count => count.Qty < 1))
         {
             throw new ArgumentException("Количество товаров не должно быть меньше одного");

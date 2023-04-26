@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Ocs.Api.Extensions;
 using Ocs.Api.Middlewares;
 using Ocs.Database.Context;
 using Ocs.Database.Repository;
@@ -37,5 +38,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.DatabaseMigrate();
 
 app.Run();
