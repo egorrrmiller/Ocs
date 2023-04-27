@@ -96,8 +96,13 @@ public class OrderRepository : IOrderRepository
             throw new ArgumentException("Количество товаров не должно быть меньше одного");
         }
 
-        order.Status = Enum.Parse<OrderStatus>(orderDto.Status);
-        var orderUpdate = _context.Orders.Update(order);
+        var orderStatus = Enum.Parse<OrderStatus>(orderDto.Status);
+        var orderUpdate = _context.Orders.Update(new()
+        {
+            Id = order.Id,
+            Status = orderStatus,
+            Created = order.Created
+        });
 
         await _context.SaveChangesAsync(cancellationToken);
 
