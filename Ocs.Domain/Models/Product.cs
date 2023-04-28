@@ -9,8 +9,4 @@ public class Product
 	[JsonIgnore]
 	[System.Text.Json.Serialization.JsonIgnore]
 	public List<Order>? Orders { get; set; }
-
-	[System.Text.Json.Serialization.JsonIgnore]
-	[JsonIgnore]
-	public ICollection<OrderProduct>? OrderProducts { get; set; }
 }

@@ -12,7 +12,7 @@ using Ocs.Database.Context;
 namespace Ocs.Database.Migrations
 {
     [DbContext(typeof(OcsContext))]
-    [Migration("20230426203026_Init")]
+    [Migration("20230428183840_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -34,7 +34,7 @@ namespace Ocs.Database.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2023, 4, 26, 20, 30, 26, 97, DateTimeKind.Utc).AddTicks(4450));
+                        .HasDefaultValue(new DateTime(2023, 4, 28, 18, 38, 40, 599, DateTimeKind.Utc).AddTicks(8723));
 
                     b.Property<bool>("Deleted")
                         .ValueGeneratedOnAdd()
@@ -80,231 +80,222 @@ namespace Ocs.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("509ec21d-b270-4c3d-8370-ad3efeeafb9a")
+                            Id = new Guid("d7257e6e-3ce0-4804-ab31-1c9517003b5a")
                         },
                         new
                         {
-                            Id = new Guid("cb75ed5c-a8c1-4bcd-b76c-d950dc1fd29d")
+                            Id = new Guid("78f6428c-e0aa-4593-b8ea-fab86d040440")
                         },
                         new
                         {
-                            Id = new Guid("8a4f891a-616d-45f0-b090-586d14b49ce2")
+                            Id = new Guid("eca26b2e-b7f0-4049-9425-f4633f7d2f69")
                         },
                         new
                         {
-                            Id = new Guid("856a2c3e-8411-474c-a863-b38db6257a5d")
+                            Id = new Guid("8ebe58ba-245a-4710-8081-4bec4d8ea5d0")
                         },
                         new
                         {
-                            Id = new Guid("00f6c93c-7a95-46fc-943c-47ab80c88b0d")
+                            Id = new Guid("b176ee00-a04a-429b-8d6c-9b47480bcadd")
                         },
                         new
                         {
-                            Id = new Guid("218f4d43-d4ce-4f22-825a-8c81bde8dfc0")
+                            Id = new Guid("e9610579-fd2b-4e29-9336-d41e6f489dbd")
                         },
                         new
                         {
-                            Id = new Guid("7fdb0f83-c37d-427b-af5a-7bbf107bd55f")
+                            Id = new Guid("d7dedb60-efbd-42e7-804e-1c1ea82c87b4")
                         },
                         new
                         {
-                            Id = new Guid("36f04eb5-7ea6-4cf2-9b3d-01b543b8d07b")
+                            Id = new Guid("ab6a4a74-b266-4bc1-a261-f1fdddb5d395")
                         },
                         new
                         {
-                            Id = new Guid("076468af-d6b8-42dc-9cd2-6c0539c785b9")
+                            Id = new Guid("afca6456-d05a-4dda-805a-942bd2d8157a")
                         },
                         new
                         {
-                            Id = new Guid("a7921430-9e08-44ef-800e-a12c2a5a178c")
+                            Id = new Guid("c27012a3-e89c-405e-a103-fc6535f06e20")
                         },
                         new
                         {
-                            Id = new Guid("871525aa-3a30-4f60-8870-0ae431c18e02")
+                            Id = new Guid("41eacc74-e8d6-48fc-baff-b5fa8257945b")
                         },
                         new
                         {
-                            Id = new Guid("e898cc64-9593-4735-920e-1b211908c689")
+                            Id = new Guid("867e99a0-8c68-48c6-b623-9b43cf1aa992")
                         },
                         new
                         {
-                            Id = new Guid("962f38b9-d3b5-44f9-a097-1a33244d8007")
+                            Id = new Guid("b5c871c8-092a-4055-8fdb-1de201df4eca")
                         },
                         new
                         {
-                            Id = new Guid("4d4122ef-ffe1-4427-947f-e8f4f83cf4db")
+                            Id = new Guid("ba7b29e4-4d53-4570-ac08-a48f5d232c4f")
                         },
                         new
                         {
-                            Id = new Guid("fafe3fd8-51af-4437-ba94-dff7105cd2f9")
+                            Id = new Guid("1590212e-1b8d-4f30-a650-7e3569677156")
                         },
                         new
                         {
-                            Id = new Guid("eb3c21f5-435c-4ca0-932d-73e5aacdd640")
+                            Id = new Guid("8b51ef0c-0a0c-4ba8-81ae-c5f3227ceee7")
                         },
                         new
                         {
-                            Id = new Guid("248b9aef-cc0f-4817-916d-ddf5352199f2")
+                            Id = new Guid("a75fd813-10b9-4723-9be6-0acdc1334789")
                         },
                         new
                         {
-                            Id = new Guid("fec237f7-da60-4242-b7ac-2eb6d8544c77")
+                            Id = new Guid("4c234817-d2d4-4b35-9d25-26803496cb1c")
                         },
                         new
                         {
-                            Id = new Guid("3615b061-772c-4f74-be99-20af97ffce86")
+                            Id = new Guid("5007cb05-788c-4fd0-b377-64c2ff528fd1")
                         },
                         new
                         {
-                            Id = new Guid("8d454183-cad4-4180-9ae0-17d8b3d4ba10")
+                            Id = new Guid("ab22f83d-0508-4d91-9f16-8c0d0a04490d")
                         },
                         new
                         {
-                            Id = new Guid("71296abd-521a-4131-8a77-76770b62d1ae")
+                            Id = new Guid("fd009a1e-0817-4c6b-a9f9-e16d0e294ae4")
                         },
                         new
                         {
-                            Id = new Guid("98edb4c9-9ba1-4f20-a3de-c453e7f63f1e")
+                            Id = new Guid("68b4dbcb-330b-41b5-b69f-595bc41764ba")
                         },
                         new
                         {
-                            Id = new Guid("a1247e1d-2d45-48f4-97f5-d9166ed3174b")
+                            Id = new Guid("d1a454fe-af60-433b-ac4f-bfd0fab0b39b")
                         },
                         new
                         {
-                            Id = new Guid("b671c1a9-599d-4d2b-824e-9c483d59b418")
+                            Id = new Guid("e39845b5-4896-4b2b-9372-ac0227c1a2c1")
                         },
                         new
                         {
-                            Id = new Guid("38dce964-de3b-4d1b-a481-4c59c25f6a45")
+                            Id = new Guid("9f1c38a8-0a4a-44e6-9a7b-2b0a62f77000")
                         },
                         new
                         {
-                            Id = new Guid("0ae756c7-3038-4d06-9eef-59fa31357578")
+                            Id = new Guid("c56a1b48-1683-4aaa-b848-791e2d25ca3b")
                         },
                         new
                         {
-                            Id = new Guid("2e66a63b-f746-42e4-977b-763cd02ff9b7")
+                            Id = new Guid("9563d4a7-80dd-4714-a101-5492cb425712")
                         },
                         new
                         {
-                            Id = new Guid("edd32b73-002a-473d-819e-e7acb0dc6463")
+                            Id = new Guid("9c8dd8af-8bf8-4747-a6f8-8417b6f0148c")
                         },
                         new
                         {
-                            Id = new Guid("092ec219-85f8-4abe-9ea2-3378e56e43b9")
+                            Id = new Guid("f38a6125-6f60-4c4a-9642-d999c9df022b")
                         },
                         new
                         {
-                            Id = new Guid("201397e4-5fda-401d-8f5a-1d1dd9405c77")
+                            Id = new Guid("d99a9bfe-89a1-45f5-a852-9f10b22fde33")
                         },
                         new
                         {
-                            Id = new Guid("cd718122-9cbb-4962-90e4-7e73eaa1e12a")
+                            Id = new Guid("680896c3-6d63-4e5d-9262-a69af2f8c38b")
                         },
                         new
                         {
-                            Id = new Guid("035dffad-d121-47ef-867d-c1123dfec03e")
+                            Id = new Guid("509ba40a-a9f9-4218-89f1-57db8459cc55")
                         },
                         new
                         {
-                            Id = new Guid("33a9b2f0-b85b-4042-b33d-de0d675d911b")
+                            Id = new Guid("fbd0b791-f552-4dc8-ac5b-29760691f221")
                         },
                         new
                         {
-                            Id = new Guid("1afe945c-a7b1-48d8-8157-4c482eed2824")
+                            Id = new Guid("3daff089-ed2d-4d05-a794-290c01794384")
                         },
                         new
                         {
-                            Id = new Guid("b1c5226b-4c44-4268-b660-1693615236b9")
+                            Id = new Guid("a6fbed27-e339-45fa-a552-410dee22739e")
                         },
                         new
                         {
-                            Id = new Guid("67978dcd-a62c-4dd5-a6ae-76a841cc4f11")
+                            Id = new Guid("fed8dd97-abb0-4d48-8648-ce89f70e24de")
                         },
                         new
                         {
-                            Id = new Guid("afbc58dc-7491-4039-86ef-07ceb7246663")
+                            Id = new Guid("bc486be6-683e-4f4a-8f86-b8451f8ce798")
                         },
                         new
                         {
-                            Id = new Guid("08f5d07c-5eb2-40cd-8169-37e6c2e5c34d")
+                            Id = new Guid("c01b07b1-270a-4598-961b-c77cd0c3bf72")
                         },
                         new
                         {
-                            Id = new Guid("01707c7d-19cc-45ee-b8a5-7bc2769ee857")
+                            Id = new Guid("8a0858da-a7d0-4de0-831d-9ddaa9cfbeff")
                         },
                         new
                         {
-                            Id = new Guid("4e65504d-bc3d-44ca-972d-5c855f7a771c")
+                            Id = new Guid("1fb65a2c-f82d-45ac-a295-ee98afb020a2")
                         },
                         new
                         {
-                            Id = new Guid("d7cb769d-3e16-43e1-8044-142a229a8514")
+                            Id = new Guid("41907136-5441-48c6-b592-6130086afb75")
                         },
                         new
                         {
-                            Id = new Guid("d78fc202-a650-4cd8-a4e7-6be5c3735311")
+                            Id = new Guid("5b525892-b9e8-4779-94c8-8bfe287f43f4")
                         },
                         new
                         {
-                            Id = new Guid("991e3e9d-3541-475c-a0cc-c9408cd96aa7")
+                            Id = new Guid("08f97d91-09bf-4e38-8265-e4717d6de36e")
                         },
                         new
                         {
-                            Id = new Guid("9928d308-b707-43a5-9a0b-2101d977222c")
+                            Id = new Guid("22824e4e-5c8d-4808-9983-b040f1baef8d")
                         },
                         new
                         {
-                            Id = new Guid("495be9ae-7f80-4312-b799-06fb5ab19d0b")
+                            Id = new Guid("d255964e-4d97-4ba1-9e29-6f227cd634c5")
                         },
                         new
                         {
-                            Id = new Guid("8f04c6e7-67af-44b9-80fe-706ae4bf50ba")
+                            Id = new Guid("9168a98a-a902-4d4b-a58d-a9de2ac180bf")
                         },
                         new
                         {
-                            Id = new Guid("876af8b8-2004-4d99-a30d-872ed682e2a7")
+                            Id = new Guid("f618d6b6-33e8-4e28-9c70-222f60da9852")
                         },
                         new
                         {
-                            Id = new Guid("206e96fd-19fd-4e36-8a06-f187afc2c6f2")
+                            Id = new Guid("90f6708b-5448-4f3f-a16e-947f6de7b182")
                         },
                         new
                         {
-                            Id = new Guid("8fb4a0ce-22ea-43d6-a384-93f875b001f1")
+                            Id = new Guid("11f55e7f-9742-4d09-9d0f-9014a82549cc")
                         },
                         new
                         {
-                            Id = new Guid("b3b6625d-85a2-47d6-88c6-53ba222a2cd4")
+                            Id = new Guid("ba0cfb15-6bd5-4f70-8698-fb5d288b8dcc")
                         });
                 });
 
             modelBuilder.Entity("Ocs.Domain.Models.OrderProduct", b =>
                 {
-                    b.HasOne("Ocs.Domain.Models.Order", "Order")
+                    b.HasOne("Ocs.Domain.Models.Order", null)
                         .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ocs.Domain.Models.Product", "Product")
-                        .WithMany("OrderProducts")
+                    b.HasOne("Ocs.Domain.Models.Product", null)
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Ocs.Domain.Models.Order", b =>
-                {
-                    b.Navigation("OrderProducts");
-                });
-
-            modelBuilder.Entity("Ocs.Domain.Models.Product", b =>
                 {
                     b.Navigation("OrderProducts");
                 });
