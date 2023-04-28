@@ -8,28 +8,28 @@ namespace Ocs.Database.Repository;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly OcsContext _context;
+	private readonly OcsContext _context;
 
-    public ProductRepository(OcsContext context) => _context = context;
+	public ProductRepository(OcsContext context) => _context = context;
 
-    public async Task<List<Product>> GetProductsAsync() => await _context.Products.ToListAsync();
+	public async Task<List<Product>> GetProductsAsync() => await _context.Products.ToListAsync();
 
-    public async Task<Product?> AddProductAsync(ProductDtoRequest productDto)
-    {
-        var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == productDto.Id);
+	public async Task<Product?> AddProductAsync(ProductDtoRequest productDto)
+	{
+		var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == productDto.Id);
 
-        if (productExists == null)
-        {
-            return null;
-        }
+		if (productExists == null)
+		{
+			return null;
+		}
 
-        var product = await _context.Products.AddAsync(new()
-        {
-            Id = productDto.Id
-        });
+		var product = await _context.Products.AddAsync(new()
+		{
+			Id = productDto.Id
+		});
 
-        await _context.SaveChangesAsync();
+		await _context.SaveChangesAsync();
 
-        return product.Entity;
-    }
+		return product.Entity;
+	}
 }

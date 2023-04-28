@@ -4,9 +4,9 @@ namespace Ocs.Domain.Dto.Error;
 
 public class ErrorDto
 {
-    public string Message { get; set; }
+	public string Message { get; set; }
 
-    public int StatusCode { get; set; }
+	public int StatusCode { get; set; }
 
-    public override string ToString() => JsonSerializer.Serialize(this);
+	public override string ToString() => JsonSerializer.Serialize(this);
 }

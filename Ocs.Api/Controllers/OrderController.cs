@@ -8,54 +8,54 @@ namespace Ocs.Api.Controllers;
 [Route("/routes")]
 public class OrderController : ControllerBase
 {
-    private readonly IOrderRepository _orderRepository;
+	private readonly IOrderRepository _orderRepository;
 
-    public OrderController(IOrderRepository orderRepository) => _orderRepository = orderRepository;
+	public OrderController(IOrderRepository orderRepository) => _orderRepository = orderRepository;
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetOrder(Guid id)
-    {
-        var order = await _orderRepository.GetOrdersAsync(id);
+	[HttpGet("{id:guid}")]
+	public async Task<IActionResult> GetOrder(Guid id)
+	{
+		var order = await _orderRepository.GetOrdersAsync(id);
 
-        if (order == null)
-        {
-            return NotFound("Заказ не найден");
-        }
+		if (order == null)
+		{
+			return NotFound("Заказ не найден");
+		}
 
-        return Ok(order);
-    }
+		return Ok(order);
+	}
 
-    [HttpPost]
-    public async Task<IActionResult> AddOrder(OrderDtoRequest orderDto)
-    {
-        var order = await _orderRepository.AddOrderAsync(orderDto);
+	[HttpPost]
+	public async Task<IActionResult> AddOrder(OrderDtoRequest orderDto)
+	{
+		var order = await _orderRepository.AddOrderAsync(orderDto);
 
-        return Ok(order);
-    }
+		return Ok(order);
+	}
 
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderDtoUpdate dtoUpdate)
-    {
-        var order = await _orderRepository.UpdateOrderAsync(id, dtoUpdate);
+	[HttpPut("{id:guid}")]
+	public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderDtoUpdate dtoUpdate)
+	{
+		var order = await _orderRepository.UpdateOrderAsync(id, dtoUpdate);
 
-        if (order == null)
-        {
-            return NotFound("Заказ не найден");
-        }
+		if (order == null)
+		{
+			return NotFound("Заказ не найден");
+		}
 
-        return Ok(order);
-    }
+		return Ok(order);
+	}
 
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeleteOrder(Guid id)
-    {
-        var success = await _orderRepository.DeleteOrderAsync(id);
+	[HttpDelete("{id:guid}")]
+	public async Task<IActionResult> DeleteOrder(Guid id)
+	{
+		var success = await _orderRepository.DeleteOrderAsync(id);
 
-        if (!success)
-        {
-            return NotFound("Заказ не найден");
-        }
+		if (!success)
+		{
+			return NotFound("Заказ не найден");
+		}
 
-        return Ok();
-    }
+		return Ok();
+	}
 }

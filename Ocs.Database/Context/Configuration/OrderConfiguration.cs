@@ -6,21 +6,21 @@ namespace Ocs.Database.Context.Configuration;
 
 public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
-    public void Configure(EntityTypeBuilder<Order> builder)
-    {
-        builder.HasMany(lines => lines.Lines)
-            .WithMany(orders => orders.Orders)
-            .UsingEntity<OrderProduct>();
+	public void Configure(EntityTypeBuilder<Order> builder)
+	{
+		builder.HasMany(lines => lines.Lines)
+			.WithMany(orders => orders.Orders)
+			.UsingEntity<OrderProduct>();
 
-        builder.Property(status => status.Status)
-            .IsRequired();
+		builder.Property(status => status.Status)
+			.IsRequired();
 
-        builder.Property(dateTime => dateTime.Created)
-            .IsRequired()
-            .HasDefaultValue(DateTime.UtcNow);
+		builder.Property(dateTime => dateTime.Created)
+			.IsRequired()
+			.HasDefaultValue(DateTime.UtcNow);
 
-        builder.Property(deleted => deleted.Deleted)
-            .IsRequired()
-            .HasDefaultValue(false);
-    }
+		builder.Property(deleted => deleted.Deleted)
+			.IsRequired()
+			.HasDefaultValue(false);
+	}
 }

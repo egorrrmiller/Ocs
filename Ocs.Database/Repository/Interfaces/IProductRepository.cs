@@ -5,7 +5,7 @@ namespace Ocs.Database.Repository.Interfaces;
 
 public interface IProductRepository
 {
-    Task<List<Product>> GetProductsAsync();
+	Task<List<Product>> GetProductsAsync();
 
-    Task<Product?> AddProductAsync(ProductDtoRequest productDto);
+	Task<Product?> AddProductAsync(ProductDtoRequest productDto);
 }
