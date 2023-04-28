@@ -6,6 +6,8 @@
 
 ## Для запуска
 
+**[Скачать и установить последнюю версию .NET SDK 7.0](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)**
+
 Клонировать репозиторий
 
 ```bash
@@ -34,7 +36,7 @@
 
 После запуска переходим по ссылке на страницу сваггера
 
-<https://localhost:7179/swagger/index.html>
+https://localhost:7179/swagger/index.html
 
 [Миграция](https://github.com/egorrrmiller/Ocs/blob/main/Ocs.Database/Migrations/20230426203026_Init.cs) применится автоматически
 
