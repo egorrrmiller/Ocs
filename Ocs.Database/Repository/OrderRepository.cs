@@ -18,7 +18,10 @@ public class OrderRepository : IOrderRepository
 	{
 		var order = await _context.Orders.AsNoTracking()
 			.Include(lines => lines.OrderProducts)
-			.FirstAsync(orderId => orderId.Id == id && orderId.Deleted == false, cancellationToken);
+			.FirstOrDefaultAsync(orderId => orderId.Id == id && orderId.Deleted == false, cancellationToken);
+
+		if (order == null)
+			return null;
 
 		var orderLines = order.OrderProducts?.Select(lines => new ProductDtoResponse(lines.ProductId, lines.Qty))
 			.ToList();
@@ -71,7 +74,10 @@ public class OrderRepository : IOrderRepository
 		cancellationToken.ThrowIfCancellationRequested();
 
 		var order = await _context.Orders.AsNoTracking()
-			.FirstAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
+			.FirstOrDefaultAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
+
+		if (order == null)
+			return null;
 
 		var orderStatus = order.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
 			? throw new ArgumentException("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать")
@@ -97,7 +103,10 @@ public class OrderRepository : IOrderRepository
 		cancellationToken.ThrowIfCancellationRequested();
 
 		var order = await _context.Orders.AsNoTracking()
-			.FirstAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
+			.FirstOrDefaultAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
+
+		if (order == null)
+			return false;
 
 		order.Deleted = order.Status is OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
 			? throw new ArgumentException("Заказы в статусах “передан в доставку”, “доставлен”, “завершен” нельзя удалить")
