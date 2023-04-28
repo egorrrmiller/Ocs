@@ -18,12 +18,7 @@ public class OrderRepository : IOrderRepository
 	{
 		var order = await _context.Orders.AsNoTracking()
 			.Include(lines => lines.OrderProducts)
-			.FirstOrDefaultAsync(orderId => orderId.Id == id, cancellationToken);
-
-		if (order == null || order.Deleted)
-		{
-			return null;
-		}
+			.FirstAsync(orderId => orderId.Id == id && orderId.Deleted == false, cancellationToken);
 
 		var orderLines = order.OrderProducts?.Select(lines => new ProductDtoResponse(lines.ProductId, lines.Qty))
 			.ToList();
@@ -41,34 +36,26 @@ public class OrderRepository : IOrderRepository
 		var product = await _context.Products.AsNoTracking()
 			.ToListAsync(cancellationToken: cancellationToken);
 
-		orderDto.Lines.Any(productId =>
+		orderDto.Lines.ForEach(line =>
 		{
-			if (!product.Exists(x => x.Id == productId.Id))
+			if (!product.Exists(x => x.Id == line.Id))
 			{
-				throw new ArgumentException($"Товара с Id: {productId} не существует");
+				throw new ArgumentException($"Товара с Id: {line.Id} не существует");
 			}
-
-			return true;
 		});
-
-		if (orderDto.Lines.Any(count => count.Qty < 1))
-		{
-			throw new ArgumentException("Количество товаров не должно быть меньше одного");
-		}
 
 		var order = await _context.Orders.AddAsync(new()
 			{
 				Id = orderDto.Id,
-				Status = OrderStatus.New
+				Status = OrderStatus.New,
+				OrderProducts = orderDto.Lines.Select(productId => new OrderProduct
+					{
+						OrderId = orderDto.Id,
+						ProductId = productId.Id,
+						Qty = productId.Qty
+					})
+					.ToList()
 			},
-			cancellationToken);
-
-		await _context.OrderProducts.AddRangeAsync(orderDto.Lines.Select(productId => new OrderProduct
-			{
-				OrderId = orderDto.Id,
-				ProductId = productId.Id,
-				Qty = productId.Qty
-			}),
 			cancellationToken);
 
 		await _context.SaveChangesAsync(cancellationToken);
@@ -84,19 +71,11 @@ public class OrderRepository : IOrderRepository
 		cancellationToken.ThrowIfCancellationRequested();
 
 		var order = await _context.Orders.AsNoTracking()
-			.FirstOrDefaultAsync(orderId => orderId.Id == id, cancellationToken);
+			.FirstAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
 
-		if (order == null || order.Deleted)
-		{
-			return null;
-		}
-
-		if (order.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
-		{
-			throw new ArgumentException("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать");
-		}
-
-		var orderStatus = Enum.Parse<OrderStatus>(orderDto.Status);
+		var orderStatus = order.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
+			? throw new ArgumentException("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать")
+			: Enum.Parse<OrderStatus>(orderDto.Status);
 
 		var orderUpdate = _context.Orders.Update(new()
 		{
@@ -118,19 +97,12 @@ public class OrderRepository : IOrderRepository
 		cancellationToken.ThrowIfCancellationRequested();
 
 		var order = await _context.Orders.AsNoTracking()
-			.FirstOrDefaultAsync(orderId => orderId.Id == id, cancellationToken);
+			.FirstAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
 
-		if (order == null || order.Deleted)
-		{
-			return false;
-		}
+		order.Deleted = order.Status is OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
+			? throw new ArgumentException("Заказы в статусах “передан в доставку”, “доставлен”, “завершен” нельзя удалить")
+			: true;
 
-		if (order.Status is OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
-		{
-			throw new ArgumentException("Заказы в статусах “передан в доставку”, “доставлен”, “завершен” нельзя удалить");
-		}
-
-		order.Deleted = true;
 		_context.Orders.Update(order);
 
 		await _context.SaveChangesAsync(cancellationToken);
