@@ -14,7 +14,7 @@ public class OrderService : IOrderService
 
 	public OrderService(OcsContext context) => _context = context;
 
-	public async Task<OrderDtoResponse?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
+	public async Task<OrderResponseDto?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var order = await _context.Orders.AsNoTracking()
 			.Include(lines => lines.OrderProducts)
@@ -34,14 +34,14 @@ public class OrderService : IOrderService
 			orderLines);
 	}
 
-	public async Task<OrderDtoResponse> AddOrderAsync(OrderDtoRequest orderDto, CancellationToken cancellationToken = default)
+	public async Task<OrderResponseDto> AddOrderAsync(OrderRequestDto orderRequestDto, CancellationToken cancellationToken = default)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
 		var product = await _context.Products.AsNoTracking()
 			.ToListAsync(cancellationToken: cancellationToken);
 
-		orderDto.Lines.ForEach(line =>
+		orderRequestDto.Lines.ForEach(line =>
 		{
 			if (!product.Exists(x => x.Id == line.Id))
 			{
@@ -51,11 +51,11 @@ public class OrderService : IOrderService
 
 		var order = await _context.Orders.AddAsync(new()
 			{
-				Id = orderDto.Id,
+				Id = orderRequestDto.Id,
 				Status = OrderStatus.New,
-				OrderProducts = orderDto.Lines.Select(productId => new OrderProduct
+				OrderProducts = orderRequestDto.Lines.Select(productId => new OrderProduct
 					{
-						OrderId = orderDto.Id,
+						OrderId = orderRequestDto.Id,
 						ProductId = productId.Id,
 						Qty = productId.Qty
 					})
@@ -68,10 +68,11 @@ public class OrderService : IOrderService
 		return new(order.Entity.Id,
 			order.Entity.Status.ToString(),
 			order.Entity.Created.ToString("yyyy-MM-dd HH:mm.s"),
-			orderDto.Lines);
+			orderRequestDto.Lines);
 	}
 
-	public async Task<OrderDtoResponse?> UpdateOrderAsync(Guid id, OrderDtoUpdate orderDto, CancellationToken cancellationToken = default)
+	public async Task<OrderResponseDto?> UpdateOrderAsync(Guid id, OrderUpdateDto orderUpdateDto,
+														CancellationToken cancellationToken = default)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
@@ -85,7 +86,7 @@ public class OrderService : IOrderService
 
 		var orderStatus = order.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
 			? throw new ArgumentException("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать")
-			: Enum.Parse<OrderStatus>(orderDto.Status);
+			: Enum.Parse<OrderStatus>(orderUpdateDto.Status);
 
 		var orderUpdate = _context.Orders.Update(new()
 		{
@@ -99,7 +100,7 @@ public class OrderService : IOrderService
 		return new(orderUpdate.Entity.Id,
 			orderUpdate.Entity.Status.ToString(),
 			orderUpdate.Entity.Created.ToString("yyyy-MM-dd HH:mm.s"),
-			orderDto.Lines);
+			orderUpdateDto.Lines);
 	}
 
 	public async Task<bool> DeleteOrderAsync(Guid id, CancellationToken cancellationToken = default)

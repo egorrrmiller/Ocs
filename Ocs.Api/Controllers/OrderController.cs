@@ -26,17 +26,17 @@ public class OrderController : ControllerBase
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> AddOrder(OrderDtoRequest orderDto)
+	public async Task<IActionResult> AddOrder(OrderRequestDto orderRequestDto)
 	{
-		var order = await _orderService.AddOrderAsync(orderDto);
+		var order = await _orderService.AddOrderAsync(orderRequestDto);
 
 		return Ok(order);
 	}
 
 	[HttpPut("{id:guid}")]
-	public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderDtoUpdate dtoUpdate)
+	public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderUpdateDto updateDto)
 	{
-		var order = await _orderService.UpdateOrderAsync(id, dtoUpdate);
+		var order = await _orderService.UpdateOrderAsync(id, updateDto);
 
 		if (order == null)
 		{
