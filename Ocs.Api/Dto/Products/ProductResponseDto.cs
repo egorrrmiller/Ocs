@@ -1,3 +1,3 @@
-namespace Ocs.Domain.Dto.Product;
+namespace Ocs.Api.Dto.Products;
 
 public record ProductResponseDto(Guid Id, int Qty);

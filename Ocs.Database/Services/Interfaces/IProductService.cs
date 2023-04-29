@@ -1,11 +1,10 @@
-using Ocs.Domain.Dto.Product;
 using Ocs.Domain.Models;
 
 namespace Ocs.Database.Services.Interfaces;
 
 public interface IProductService
 {
-	Task<List<Product>> GetProductsAsync();
+    Task<List<Product>> GetProductsAsync();
 
-	Task<Product?> AddProductAsync(ProductRequestDto productRequestDto);
+    Task<Product?> AddProductAsync(Product product);
 }

@@ -2,15 +2,15 @@ namespace Ocs.Domain.Enums;
 
 public enum OrderStatus
 {
-	New,
+    New,
 
-	AwaitPaid,
+    AwaitPaid,
 
-	Paid,
+    Paid,
 
-	SentForDelivery,
+    SentForDelivery,
 
-	Delivered,
+    Delivered,
 
-	Completed
+    Completed
 }
