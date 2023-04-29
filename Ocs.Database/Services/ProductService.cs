@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Ocs.Database.Context;
-using Ocs.Database.Repository.Interfaces;
+using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Dto.Product;
 using Ocs.Domain.Models;
 
-namespace Ocs.Database.Repository;
+namespace Ocs.Database.Services;
 
-public class ProductRepository : IProductRepository
+public class ProductService : IProductService
 {
 	private readonly OcsContext _context;
 
-	public ProductRepository(OcsContext context) => _context = context;
+	public ProductService(OcsContext context) => _context = context;
 
 	public async Task<List<Product>> GetProductsAsync() => await _context.Products.ToListAsync();
 

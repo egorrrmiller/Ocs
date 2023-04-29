@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Ocs.Database.Repository.Interfaces;
+using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Dto.Order;
 
 namespace Ocs.Api.Controllers;
@@ -8,14 +8,14 @@ namespace Ocs.Api.Controllers;
 [Route("/routes")]
 public class OrderController : ControllerBase
 {
-	private readonly IOrderRepository _orderRepository;
+	private readonly IOrderService _orderService;
 
-	public OrderController(IOrderRepository orderRepository) => _orderRepository = orderRepository;
+	public OrderController(IOrderService orderService) => _orderService = orderService;
 
 	[HttpGet("{id:guid}")]
 	public async Task<IActionResult> GetOrder(Guid id)
 	{
-		var order = await _orderRepository.GetOrdersAsync(id);
+		var order = await _orderService.GetOrdersAsync(id);
 
 		if (order == null)
 		{
@@ -28,7 +28,7 @@ public class OrderController : ControllerBase
 	[HttpPost]
 	public async Task<IActionResult> AddOrder(OrderDtoRequest orderDto)
 	{
-		var order = await _orderRepository.AddOrderAsync(orderDto);
+		var order = await _orderService.AddOrderAsync(orderDto);
 
 		return Ok(order);
 	}
@@ -36,7 +36,7 @@ public class OrderController : ControllerBase
 	[HttpPut("{id:guid}")]
 	public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] OrderDtoUpdate dtoUpdate)
 	{
-		var order = await _orderRepository.UpdateOrderAsync(id, dtoUpdate);
+		var order = await _orderService.UpdateOrderAsync(id, dtoUpdate);
 
 		if (order == null)
 		{
@@ -49,7 +49,7 @@ public class OrderController : ControllerBase
 	[HttpDelete("{id:guid}")]
 	public async Task<IActionResult> DeleteOrder(Guid id)
 	{
-		var success = await _orderRepository.DeleteOrderAsync(id);
+		var success = await _orderService.DeleteOrderAsync(id);
 
 		if (!success)
 		{

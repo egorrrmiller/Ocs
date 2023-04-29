@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Ocs.Database.Repository.Interfaces;
+using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Dto.Product;
 
 namespace Ocs.Api.Controllers;
@@ -8,17 +8,17 @@ namespace Ocs.Api.Controllers;
 [Route("product")]
 public class ProductController : ControllerBase
 {
-	private readonly IProductRepository _productRepository;
+	private readonly IProductService _productService;
 
-	public ProductController(IProductRepository productRepository) => _productRepository = productRepository;
+	public ProductController(IProductService productService) => _productService = productService;
 
 	[HttpGet]
-	public async Task<IActionResult> GetAll() => Ok(await _productRepository.GetProductsAsync());
+	public async Task<IActionResult> GetAll() => Ok(await _productService.GetProductsAsync());
 
 	[HttpPost]
 	public async Task<IActionResult> AddProduct(ProductDtoRequest productDto)
 	{
-		var product = await _productRepository.AddProductAsync(productDto);
+		var product = await _productService.AddProductAsync(productDto);
 
 		if (product == null)
 		{

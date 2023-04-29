@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Ocs.Api.Extensions;
 using Ocs.Api.Middlewares;
 using Ocs.Database.Context;
-using Ocs.Database.Repository;
-using Ocs.Database.Repository.Interfaces;
+using Ocs.Database.Services;
+using Ocs.Database.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContext<OcsContext>(opt => opt.UseNpgsql(connectionString));
 
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers()
 	.AddNewtonsoftJson();

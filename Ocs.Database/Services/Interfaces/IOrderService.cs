@@ -1,8 +1,8 @@
 using Ocs.Domain.Dto.Order;
 
-namespace Ocs.Database.Repository.Interfaces;
+namespace Ocs.Database.Services.Interfaces;
 
-public interface IOrderRepository
+public interface IOrderService
 {
 	Task<OrderDtoResponse?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default);
 

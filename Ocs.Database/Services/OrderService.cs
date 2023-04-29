@@ -1,18 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Ocs.Database.Context;
-using Ocs.Database.Repository.Interfaces;
+using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Dto.Order;
 using Ocs.Domain.Dto.Product;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
 
-namespace Ocs.Database.Repository;
+namespace Ocs.Database.Services;
 
-public class OrderRepository : IOrderRepository
+public class OrderService : IOrderService
 {
 	private readonly OcsContext _context;
 
-	public OrderRepository(OcsContext context) => _context = context;
+	public OrderService(OcsContext context) => _context = context;
 
 	public async Task<OrderDtoResponse?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
 	{
@@ -21,7 +21,9 @@ public class OrderRepository : IOrderRepository
 			.FirstOrDefaultAsync(orderId => orderId.Id == id && orderId.Deleted == false, cancellationToken);
 
 		if (order == null)
+		{
 			return null;
+		}
 
 		var orderLines = order.OrderProducts?.Select(lines => new ProductDtoResponse(lines.ProductId, lines.Qty))
 			.ToList();
@@ -77,7 +79,9 @@ public class OrderRepository : IOrderRepository
 			.FirstOrDefaultAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
 
 		if (order == null)
+		{
 			return null;
+		}
 
 		var orderStatus = order.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
 			? throw new ArgumentException("Заказы в статусах “оплачен”, “передан в доставку”, “доставлен”, “завершен” нельзя редактировать")
@@ -106,7 +110,9 @@ public class OrderRepository : IOrderRepository
 			.FirstOrDefaultAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
 
 		if (order == null)
+		{
 			return false;
+		}
 
 		order.Deleted = order.Status is OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
 			? throw new ArgumentException("Заказы в статусах “передан в доставку”, “доставлен”, “завершен” нельзя удалить")
