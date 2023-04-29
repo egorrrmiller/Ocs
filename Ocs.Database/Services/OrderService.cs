@@ -42,18 +42,9 @@ public class OrderService : IOrderService
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
         }
 
-        var orderUpdate = await _context.Orders.AddAsync(new()
-            {
-                Id = order.Id,
-                Status = OrderStatus.New,
-                OrderProducts = order.OrderProducts.Select(productId => new OrderProduct
-                    {
-                        OrderId = order.Id,
-                        ProductId = productId.ProductId,
-                        Qty = productId.Qty
-                    })
-                    .ToList()
-            },
+
+        order.Status = OrderStatus.New;
+        var orderUpdate = await _context.Orders.AddAsync(order,
             cancellationToken);
 
         await _context.SaveChangesAsync(cancellationToken);
@@ -91,14 +82,7 @@ public class OrderService : IOrderService
         _context.OrderProducts.RemoveRange(orderContext.OrderProducts);
 
         orderContext.Status = order.Status;
-
-        orderContext.OrderProducts = order.OrderProducts.Select(product => new OrderProduct
-            {
-                OrderId = id,
-                ProductId = product.ProductId,
-                Qty = product.Qty
-            })
-            .ToList();
+        orderContext.OrderProducts = order.OrderProducts;
 
         var orderUpdate = _context.Orders.Update(orderContext);
 
