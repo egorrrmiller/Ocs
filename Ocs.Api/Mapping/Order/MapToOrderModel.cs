@@ -26,7 +26,7 @@ public static class MapToOrderModel
     {
         var orderStatus = Enum.TryParse(orderUpdate.Status, out OrderStatus status)
             ? status
-            : throw new ArgumentException("Неккоретный статус заказа.");
+            : throw new ArgumentException("Некорретный статус заказа.");
 
         var order = new Domain.Models.Order
         {
