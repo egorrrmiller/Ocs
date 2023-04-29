@@ -3,8 +3,6 @@ using Ocs.Database.Context;
 using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
-using Ocs.Dto.Order;
-using Ocs.Dto.Product;
 
 namespace Ocs.Database.Services;
 
@@ -14,53 +12,44 @@ public class OrderService : IOrderService
 
     public OrderService(OcsContext context) => _context = context;
 
-    public async Task<OrderResponseDto?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Order?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var order = await _context.Orders.AsNoTracking()
             .Include(lines => lines.OrderProducts)
             .FirstOrDefaultAsync(orderId => orderId.Id == id && orderId.Deleted == false, cancellationToken);
 
-        if (order == null)
-            return null;
-
-        var orderLines = order.OrderProducts?.Select(lines => new ProductResponseDto(lines.ProductId, lines.Qty))
-            .ToList();
-
-        return new(order.Id,
-            order.Status.ToString(),
-            order.Created.ToString("yyyy-MM-dd HH:mm.s"),
-            orderLines);
+        return order ?? null;
     }
 
-    public async Task<OrderResponseDto?> AddOrderAsync(OrderRequestDto orderRequestDto, CancellationToken cancellationToken = default)
+    public async Task<Order?> AddOrderAsync(Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var idExist = await _context.Orders.FirstOrDefaultAsync(id => id.Id == orderRequestDto.Id, cancellationToken);
+        var idExist = await _context.Orders.FirstOrDefaultAsync(id => id.Id == order.Id, cancellationToken);
 
         if (idExist != null)
-            throw new ArgumentException($"Id {orderRequestDto.Id} зарезервирован. Сгенерируйте новый.");
+            throw new ArgumentException($"Id {order.Id} зарезервирован. Сгенерируйте новый.");
 
         var product = await _context.Products.AsNoTracking()
             .ToListAsync(cancellationToken: cancellationToken);
 
-        orderRequestDto.Lines.ForEach(line =>
+        foreach (var line in order.OrderProducts)
         {
-            if (!product.Exists(x => x.Id == line.Id))
-                throw new ArgumentException($"Товара с Id: {line.Id} не существует");
+            if (!product.Exists(x => x.Id == line.ProductId))
+                throw new ArgumentException($"Товара с Id: {line.ProductId} не существует");
 
             if (line.Qty < 1)
-                throw new ArgumentException("Количество товаров не может быть < 1");
-        });
+                throw new ArgumentException("Количество товаров не может быть меньше 1");
+        }
 
-        var order = await _context.Orders.AddAsync(new()
+        var orderUpdate = await _context.Orders.AddAsync(new()
             {
-                Id = orderRequestDto.Id,
+                Id = order.Id,
                 Status = OrderStatus.New,
-                OrderProducts = orderRequestDto.Lines.Select(productId => new OrderProduct
+                OrderProducts = order.OrderProducts.Select(productId => new OrderProduct
                     {
-                        OrderId = orderRequestDto.Id,
-                        ProductId = productId.Id,
+                        OrderId = order.Id,
+                        ProductId = productId.ProductId,
                         Qty = productId.Qty
                     })
                     .ToList()
@@ -69,63 +58,53 @@ public class OrderService : IOrderService
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new(order.Entity.Id,
-            order.Entity.Status.ToString(),
-            order.Entity.Created.ToString("yyyy-MM-dd HH:mm.s"),
-            orderRequestDto.Lines);
+        return orderUpdate.Entity;
     }
 
-    public async Task<OrderResponseDto?> UpdateOrderAsync(Guid id, OrderUpdateDto orderUpdateDto,
-                                                          CancellationToken cancellationToken = default)
+    public async Task<Order?> UpdateOrderAsync(Guid id, Order order,
+                                               CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var order = await _context.Orders
+        var orderContext = await _context.Orders
             .Include(lines => lines.OrderProducts)
             .FirstOrDefaultAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
 
         var product = await _context.Products.AsNoTracking()
             .ToListAsync(cancellationToken: cancellationToken);
 
-        if (order == null)
+        if (orderContext == null)
             return null;
 
-        if (order.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
+        if (orderContext.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
             throw new ArgumentException("Заказы в статусах оплачен, передан в доставку, доставлен, завершен нельзя редактировать");
 
-        orderUpdateDto.Lines.ForEach(line =>
+        foreach (var line in order.OrderProducts)
         {
-            if (!product.Exists(x => x.Id == line.Id))
-                throw new ArgumentException($"Товара с Id: {line.Id} не существует");
+            if (!product.Exists(x => x.Id == line.ProductId))
+                throw new ArgumentException($"Товара с Id: {line.ProductId} не существует");
 
             if (line.Qty < 1)
-                throw new ArgumentException("Количество товаров не может быть < 1");
-        });
+                throw new ArgumentException("Количество товаров не может быть меньше 1");
+        }
 
-        var orderStatus = Enum.TryParse(orderUpdateDto.Status, out OrderStatus status)
-            ? status
-            : throw new ArgumentException("Неккоретный статус заказа.");
+        _context.OrderProducts.RemoveRange(orderContext.OrderProducts);
 
-        _context.OrderProducts.RemoveRange(order.OrderProducts);
+        orderContext.Status = order.Status;
 
-        order.Status = orderStatus;
-
-        order.OrderProducts = orderUpdateDto.Lines.Select(product => new OrderProduct
+        orderContext.OrderProducts = order.OrderProducts.Select(product => new OrderProduct
             {
                 OrderId = id,
-                ProductId = product.Id,
+                ProductId = product.ProductId,
                 Qty = product.Qty
             })
             .ToList();
 
-        var orderUpdate = _context.Orders.Update(order);
+        var orderUpdate = _context.Orders.Update(orderContext);
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new(orderUpdate.Entity.Id,
-            orderUpdate.Entity.Status.ToString(),
-            orderUpdate.Entity.Created.ToString("yyyy-MM-dd HH:mm.s"),
-            orderUpdateDto.Lines);
+        return orderUpdate.Entity;
     }
 
     public async Task<bool> DeleteOrderAsync(Guid id, CancellationToken cancellationToken = default)

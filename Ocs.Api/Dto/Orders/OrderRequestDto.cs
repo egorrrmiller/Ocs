@@ -1,5 +1,5 @@
-using Ocs.Dto.Product;
+using Ocs.Api.Dto.Products;
 
-namespace Ocs.Dto.Order;
+namespace Ocs.Api.Dto.Orders;
 
 public record OrderRequestDto(Guid Id, List<ProductResponseDto> Lines);

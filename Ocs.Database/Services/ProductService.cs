@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Ocs.Database.Context;
 using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Models;
-using Ocs.Dto.Product;
 
 namespace Ocs.Database.Services;
 
@@ -14,20 +13,20 @@ public class ProductService : IProductService
 
     public async Task<List<Product>> GetProductsAsync() => await _context.Products.ToListAsync();
 
-    public async Task<Product?> AddProductAsync(ProductRequestDto productRequestDto)
+    public async Task<Product?> AddProductAsync(Product product)
     {
-        var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == productRequestDto.Id);
+        var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == product.Id);
 
         if (productExists == null)
             return null;
 
-        var product = await _context.Products.AddAsync(new()
+        var productUpdate = await _context.Products.AddAsync(new()
         {
-            Id = productRequestDto.Id
+            Id = product.Id
         });
 
         await _context.SaveChangesAsync();
 
-        return product.Entity;
+        return productUpdate.Entity;
     }
 }

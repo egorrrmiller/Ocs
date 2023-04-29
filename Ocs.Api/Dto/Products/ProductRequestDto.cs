@@ -1,3 +1,3 @@
-namespace Ocs.Dto.Product;
+namespace Ocs.Api.Dto.Products;
 
 public record ProductRequestDto(Guid Id);

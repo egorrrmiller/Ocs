@@ -1,5 +1,5 @@
 using System.Net;
-using Ocs.Dto.Error;
+using Ocs.Api.Dto.Errors;
 
 namespace Ocs.Api.Middlewares;
 

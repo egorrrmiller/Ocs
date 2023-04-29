@@ -2,7 +2,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 
-namespace Ocs.Dto.Error;
+namespace Ocs.Api.Dto.Errors;
 
 public class ErrorDto
 {

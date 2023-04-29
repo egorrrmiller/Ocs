@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Ocs.Api.Dto.Products;
 using Ocs.Database.Services.Interfaces;
-using Ocs.Dto.Product;
 
 namespace Ocs.Api.Controllers;
 
@@ -18,7 +18,10 @@ public class ProductController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddProduct(ProductRequestDto productRequestDto)
     {
-        var product = await _productService.AddProductAsync(productRequestDto);
+        var product = await _productService.AddProductAsync(new()
+        {
+            Id = productRequestDto.Id
+        });
 
         if (product == null)
             return BadRequest("Товар уже существует");
