@@ -42,8 +42,8 @@ public class OrderService : IOrderService
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
         }
 
-
         order.Status = OrderStatus.New;
+
         var orderUpdate = await _context.Orders.AddAsync(order,
             cancellationToken);
 
