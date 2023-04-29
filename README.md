@@ -42,8 +42,11 @@ https://localhost:7179/swagger/index.html
 
 ## Комментарии
 
-1. Из за данного пункта сделал в базе доп поле Deleted, которая бы помечала удаленные заказы<br/>
-![image](https://user-images.githubusercontent.com/44502536/234329730-837ca37e-e389-4be5-bdb4-81920a8580d3.png)
+1. Из за данных пунктов сделал в базе доп поле Deleted, которая бы помечала удаленные заказы<br/>
+- ![image](https://user-images.githubusercontent.com/44502536/235317965-59244cd5-b19b-403f-85e8-a166e5c64dc7.png)
+
+- ![image](https://user-images.githubusercontent.com/44502536/235317983-f742057d-835e-4560-b4d7-3535dc8fde19.png)
+
 
 
 
