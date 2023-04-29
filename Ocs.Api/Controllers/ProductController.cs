@@ -16,9 +16,9 @@ public class ProductController : ControllerBase
 	public async Task<IActionResult> GetAll() => Ok(await _productService.GetProductsAsync());
 
 	[HttpPost]
-	public async Task<IActionResult> AddProduct(ProductDtoRequest productDto)
+	public async Task<IActionResult> AddProduct(ProductRequestDto productRequestDto)
 	{
-		var product = await _productService.AddProductAsync(productDto);
+		var product = await _productService.AddProductAsync(productRequestDto);
 
 		if (product == null)
 		{

@@ -14,9 +14,9 @@ public class ProductService : IProductService
 
 	public async Task<List<Product>> GetProductsAsync() => await _context.Products.ToListAsync();
 
-	public async Task<Product?> AddProductAsync(ProductDtoRequest productDto)
+	public async Task<Product?> AddProductAsync(ProductRequestDto productRequestDto)
 	{
-		var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == productDto.Id);
+		var productExists = await _context.Products.FirstOrDefaultAsync(id => id.Id == productRequestDto.Id);
 
 		if (productExists == null)
 		{
@@ -25,7 +25,7 @@ public class ProductService : IProductService
 
 		var product = await _context.Products.AddAsync(new()
 		{
-			Id = productDto.Id
+			Id = productRequestDto.Id
 		});
 
 		await _context.SaveChangesAsync();

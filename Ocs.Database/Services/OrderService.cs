@@ -25,7 +25,7 @@ public class OrderService : IOrderService
 			return null;
 		}
 
-		var orderLines = order.OrderProducts?.Select(lines => new ProductDtoResponse(lines.ProductId, lines.Qty))
+		var orderLines = order.OrderProducts?.Select(lines => new ProductResponseDto(lines.ProductId, lines.Qty))
 			.ToList();
 
 		return new(order.Id,
