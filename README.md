@@ -50,7 +50,7 @@ https://localhost:7179/swagger/index.html
 
 3. Похожие тестовые задания, которые я выполнял: 
 - https://github.com/egorrrmiller/Modsen
-- https://github.com/egorrrmiller/kaspel (здесь Many-To-Many)
+- https://github.com/egorrrmiller/kaspel
 
 
 
