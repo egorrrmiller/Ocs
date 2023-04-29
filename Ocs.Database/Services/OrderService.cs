@@ -30,7 +30,7 @@ public class OrderService : IOrderService
 
 		return new(order.Id,
 			order.Status.ToString(),
-			order.Created.ToString("yyyy-MM-dd hh:mm.s"),
+			order.Created.ToString("yyyy-MM-dd HH:mm.s"),
 			orderLines);
 	}
 
@@ -67,7 +67,7 @@ public class OrderService : IOrderService
 
 		return new(order.Entity.Id,
 			order.Entity.Status.ToString(),
-			order.Entity.Created.ToString("yyyy-MM-dd hh:mm.s"),
+			order.Entity.Created.ToString("yyyy-MM-dd HH:mm.s"),
 			orderDto.Lines);
 	}
 
@@ -98,7 +98,7 @@ public class OrderService : IOrderService
 
 		return new(orderUpdate.Entity.Id,
 			orderUpdate.Entity.Status.ToString(),
-			orderUpdate.Entity.Created.ToString("yyyy-MM-dd hh:mm.s"),
+			orderUpdate.Entity.Created.ToString("yyyy-MM-dd HH:mm.s"),
 			orderDto.Lines);
 	}
 
