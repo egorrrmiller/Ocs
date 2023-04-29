@@ -1,5 +1,5 @@
-using Ocs.Domain.Dto.Product;
+using Ocs.Dto.Product;
 
-namespace Ocs.Domain.Dto.Order;
+namespace Ocs.Dto.Order;
 
 public record OrderResponseDto(Guid Id, string Status, string Created, List<ProductResponseDto> Lines);
