@@ -10,9 +10,9 @@ public class Order
 
     public DateTime Created { get; set; }
 
-    public List<Product> Lines { get; set; }
+    public List<Line> Lines { get; set; }
 
     public bool Deleted { get; set; }
 
-    public ICollection<OrderProduct>? OrderProducts { get; set; }
+    public ICollection<OrderLines>? OrderLines { get; set; }
 }

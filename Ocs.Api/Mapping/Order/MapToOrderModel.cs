@@ -11,9 +11,9 @@ public static class MapToOrderModel
         var order = new Domain.Models.Order
         {
             Id = orderRequest.Id,
-            OrderProducts = orderRequest.Lines.Select(product => new OrderProduct
+            OrderLines = orderRequest.Lines.Select(product => new OrderLines
                 {
-                    ProductId = product.Id,
+                    LineId = product.Id,
                     Qty = product.Qty
                 })
                 .ToList()
@@ -31,10 +31,10 @@ public static class MapToOrderModel
         var order = new Domain.Models.Order
         {
             Status = orderStatus,
-            OrderProducts = orderUpdate.Lines.Select(product => new OrderProduct
+            OrderLines = orderUpdate.Lines.Select(line => new OrderLines
                 {
-                    ProductId = product.Id,
-                    Qty = product.Qty
+                    LineId = line.Id,
+                    Qty = line.Qty
                 })
                 .ToList()
         };

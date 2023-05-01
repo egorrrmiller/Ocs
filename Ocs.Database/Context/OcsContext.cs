@@ -6,20 +6,27 @@ namespace Ocs.Database.Context;
 
 public class OcsContext : DbContext
 {
+    public OcsContext()
+    {
+    }
+
     public OcsContext(DbContextOptions<OcsContext> options) : base(options)
     {
     }
 
     public DbSet<Order> Orders { get; set; }
 
-    public DbSet<Product> Products { get; set; }
+    public DbSet<Line> Line { get; set; }
 
-    public DbSet<OrderProduct> OrderProducts { get; set; }
+    public DbSet<OrderLines> OrderLines { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+        optionsBuilder.UseNpgsql("User ID=postgres;Password=123;Host=localhost;Port=5432;Database=ocs;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new OrderConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductConfiguration());
+        modelBuilder.ApplyConfiguration(new LineConfiguration());
 
         base.OnModelCreating(modelBuilder);
     }

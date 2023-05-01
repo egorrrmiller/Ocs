@@ -15,7 +15,7 @@ public class OrderService : IOrderService
     public async Task<Order?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var order = await _context.Orders.AsNoTracking()
-            .Include(lines => lines.OrderProducts)
+            .Include(lines => lines.OrderLines)
             .FirstOrDefaultAsync(orderId => orderId.Id == id && orderId.Deleted == false, cancellationToken);
 
         return order ?? null;
@@ -30,13 +30,13 @@ public class OrderService : IOrderService
         if (idExist != null)
             throw new ArgumentException($"Id {order.Id} зарезервирован. Сгенерируйте новый.");
 
-        var product = await _context.Products.AsNoTracking()
+        var product = await _context.Line.AsNoTracking()
             .ToListAsync(cancellationToken: cancellationToken);
 
-        foreach (var line in order.OrderProducts)
+        foreach (var line in order.OrderLines)
         {
-            if (!product.Exists(x => x.Id == line.ProductId))
-                throw new ArgumentException($"Товара с Id: {line.ProductId} не существует");
+            if (!product.Exists(x => x.Id == line.LineId))
+                throw new ArgumentException($"Товара с Id: {line.LineId} не существует");
 
             if (line.Qty < 1)
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
@@ -58,10 +58,10 @@ public class OrderService : IOrderService
         cancellationToken.ThrowIfCancellationRequested();
 
         var orderContext = await _context.Orders
-            .Include(lines => lines.OrderProducts)
+            .Include(lines => lines.OrderLines)
             .FirstOrDefaultAsync(order => order.Id == id && order.Deleted == false, cancellationToken);
 
-        var product = await _context.Products.AsNoTracking()
+        var product = await _context.Line.AsNoTracking()
             .ToListAsync(cancellationToken: cancellationToken);
 
         if (orderContext == null)
@@ -70,19 +70,19 @@ public class OrderService : IOrderService
         if (orderContext.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
             throw new ArgumentException("Заказы в статусах оплачен, передан в доставку, доставлен, завершен нельзя редактировать");
 
-        foreach (var line in order.OrderProducts)
+        foreach (var line in order.OrderLines)
         {
-            if (!product.Exists(x => x.Id == line.ProductId))
-                throw new ArgumentException($"Товара с Id: {line.ProductId} не существует");
+            if (!product.Exists(x => x.Id == line.LineId))
+                throw new ArgumentException($"Товара с Id: {line.LineId} не существует");
 
             if (line.Qty < 1)
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
         }
 
-        _context.OrderProducts.RemoveRange(orderContext.OrderProducts);
+        _context.OrderLines.RemoveRange(orderContext.OrderLines);
 
         orderContext.Status = order.Status;
-        orderContext.OrderProducts = order.OrderProducts;
+        orderContext.OrderLines = order.OrderLines;
 
         var orderUpdate = _context.Orders.Update(orderContext);
 

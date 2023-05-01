@@ -13,7 +13,7 @@ var connectionString = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContext<OcsContext>(opt => opt.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ILineService, LineService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();

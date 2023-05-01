@@ -1,6 +1,6 @@
 namespace Ocs.Domain.Models;
 
-public class Product
+public class Line
 {
     public Guid Id { get; set; }
 

@@ -4,10 +4,10 @@ using Ocs.Domain.Models;
 
 namespace Ocs.Database.Context.Configuration;
 
-public class ProductConfiguration : IEntityTypeConfiguration<Product>
+public class LineConfiguration : IEntityTypeConfiguration<Line>
 {
-    public void Configure(EntityTypeBuilder<Product> builder) => builder.HasData(Enumerable.Range(0, 50)
-        .Select(product => new Product
+    public void Configure(EntityTypeBuilder<Line> builder) => builder.HasData(Enumerable.Range(0, 50)
+        .Select(_ => new Line
         {
             Id = Guid.NewGuid()
         }));

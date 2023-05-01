@@ -10,7 +10,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
         builder.HasMany(lines => lines.Lines)
             .WithMany(orders => orders.Orders)
-            .UsingEntity<OrderProduct>();
+            .UsingEntity<OrderLines>();
 
         builder.Property(status => status.Status)
             .IsRequired();
