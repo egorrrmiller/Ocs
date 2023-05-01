@@ -40,7 +40,7 @@
 
 https://localhost:7179/swagger/index.html
 
-[Миграция](https://github.com/egorrrmiller/Ocs/blob/main/Ocs.Database/Migrations/20230428183840_Init.cs) применится автоматически
+[Миграция](https://github.com/egorrrmiller/Ocs/blob/main/Ocs.Database/Migrations/20230501201604_Init.cs) применится автоматически
 
 ## Исправления по замечаниям
 
