@@ -43,6 +43,7 @@ public class OrderService : IOrderService
         }
 
         order.Status = OrderStatus.New;
+        order.Created = DateTime.UtcNow;
 
         var orderUpdate = await _context.Orders.AddAsync(order,
             cancellationToken);

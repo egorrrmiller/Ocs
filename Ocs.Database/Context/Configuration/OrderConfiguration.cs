@@ -16,8 +16,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .IsRequired();
 
         builder.Property(dateTime => dateTime.Created)
-            .IsRequired()
-            .HasDefaultValue(DateTime.UtcNow);
+            .IsRequired();
 
         builder.Property(deleted => deleted.Deleted)
             .IsRequired()

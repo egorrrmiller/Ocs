@@ -52,6 +52,6 @@ public class ErrorExceptionHandling
             Message = message
         };
 
-        await response.WriteAsJsonAsync(errorDto.ToString());
+        await response.WriteAsJsonAsync(errorDto);
     }
 }
