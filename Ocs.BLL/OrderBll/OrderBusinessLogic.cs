@@ -1,5 +1,4 @@
 ﻿using Ocs.BLL.Interfaces;
-using Ocs.Database.Context;
 using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
@@ -10,16 +9,12 @@ public class OrderBusinessLogic : IOrderBusinessLogic
 {
     private readonly ILineService _lineService;
 
-    //private readonly OcsContext _context;
-
     private readonly IOrderService _orderService;
 
-    public OrderBusinessLogic(IOrderService orderService, OcsContext context, ILineService lineService)
+    public OrderBusinessLogic(IOrderService orderService, ILineService lineService)
     {
         _orderService = orderService;
         _lineService = lineService;
-
-        //_context = context;
     }
 
     public async Task<Order?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default) =>
