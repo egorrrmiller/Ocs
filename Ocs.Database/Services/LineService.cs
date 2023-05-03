@@ -15,15 +15,7 @@ public class LineService : ILineService
 
     public async Task<Line?> AddLineAsync(Line line)
     {
-        var lineExists = await _context.Line.FirstOrDefaultAsync(id => id.Id == line.Id);
-
-        if (lineExists == null)
-            return null;
-
-        var lineUpdate = await _context.Line.AddAsync(new()
-        {
-            Id = line.Id
-        });
+        var lineUpdate = await _context.Line.AddAsync(line);
 
         await _context.SaveChangesAsync();
 

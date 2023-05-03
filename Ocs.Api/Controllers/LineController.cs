@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ocs.Api.Dto.Lines;
-using Ocs.Database.Services.Interfaces;
+using Ocs.BLL.Interfaces;
 
 namespace Ocs.Api.Controllers;
 
@@ -8,17 +8,17 @@ namespace Ocs.Api.Controllers;
 [Route("/lines")]
 public class LineController : ControllerBase
 {
-    private readonly ILineService _lineService;
+    private readonly ILineBusinessLogic _lineBusiness;
 
-    public LineController(ILineService lineService) => _lineService = lineService;
+    public LineController(ILineBusinessLogic lineBusiness) => _lineBusiness = lineBusiness;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll() => Ok(await _lineService.GetLinesAsync());
+    public async Task<IActionResult> GetAll() => Ok(await _lineBusiness.GetLinesAsync());
 
     [HttpPost]
     public async Task<IActionResult> AddLine(LineRequestDto lineRequestDto)
     {
-        var line = await _lineService.AddLineAsync(new()
+        var line = await _lineBusiness.AddLineAsync(new()
         {
             Id = lineRequestDto.Id
         });
