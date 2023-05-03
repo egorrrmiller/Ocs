@@ -1,6 +1,6 @@
-﻿using Ocs.Api.Dto.Orders;
+﻿using Ocs.BLL.Dto.Orders;
 
-namespace Ocs.Api.Mapping.Order;
+namespace Ocs.BLL.Mapping.Order;
 
 public static class MapToOrderDto
 {

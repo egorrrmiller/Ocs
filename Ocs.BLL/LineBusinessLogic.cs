@@ -4,7 +4,7 @@ using Ocs.Database.Context;
 using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Models;
 
-namespace Ocs.BLL.LineBll;
+namespace Ocs.BLL;
 
 public class LineBusinessLogic : ILineBusinessLogic
 {

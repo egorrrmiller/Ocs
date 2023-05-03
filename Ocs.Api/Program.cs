@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Ocs.Api.Extensions;
 using Ocs.Api.Middlewares;
+using Ocs.BLL;
 using Ocs.BLL.Interfaces;
-using Ocs.BLL.LineBll;
-using Ocs.BLL.OrderBll;
 using Ocs.Database.Context;
 using Ocs.Database.Services;
 using Ocs.Database.Services.Interfaces;

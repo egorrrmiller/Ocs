@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Ocs.Api.Dto.Lines;
+using Ocs.BLL.Dto.Lines;
 using Ocs.BLL.Interfaces;
 
 namespace Ocs.Api.Controllers;
