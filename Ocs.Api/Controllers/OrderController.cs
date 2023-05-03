@@ -11,7 +11,7 @@ public class OrderController : ControllerBase
 {
     private readonly IOrderBusinessLogic _orderBusiness;
 
-    public OrderController(IOrderBusinessLogic orderService) => _orderBusiness = orderService;
+    public OrderController(IOrderBusinessLogic orderBusiness) => _orderBusiness = orderBusiness;
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetOrder(Guid id)
