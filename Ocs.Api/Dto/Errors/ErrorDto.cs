@@ -1,4 +1,4 @@
-namespace Ocs.BLL.Dto.Errors;
+namespace Ocs.Api.Dto.Errors;
 
 public class ErrorDto
 {

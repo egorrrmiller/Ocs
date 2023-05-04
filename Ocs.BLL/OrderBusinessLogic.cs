@@ -1,6 +1,4 @@
-﻿using Ocs.BLL.Dto.Orders;
-using Ocs.BLL.Interfaces;
-using Ocs.BLL.Mapping.Order;
+﻿using Ocs.BLL.Interfaces;
 using Ocs.Database.Services;
 using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Enums;
@@ -31,14 +29,14 @@ public class OrderBusinessLogic : IOrderBusinessLogic
     /// <summary>
     /// Добавление нового заказа
     /// </summary>
-    /// <param name="orderDto"> Тело заказа </param>
+    /// <param name="order"> </param>
     /// <param name="cancellationToken"> Токен отмены </param>
+    /// <param name="orderDto"> Тело заказа </param>
     /// <returns> Созданный заказ </returns>
-    public async Task<OrderResponseDto?> AddOrderAsync(OrderRequestDto orderDto, CancellationToken cancellationToken = default)
+    public async Task<Order?> AddOrderAsync(Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var order = orderDto.MapToModel();
         var idExist = await GetOrdersAsync(order.Id, cancellationToken);
 
         if (idExist != null)
@@ -55,24 +53,21 @@ public class OrderBusinessLogic : IOrderBusinessLogic
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
         }
 
-        var result = await _orderService.AddOrderAsync(order, cancellationToken);
-
-        return result.MapToDto();
+        return await _orderService.AddOrderAsync(order, cancellationToken);
     }
 
     /// <summary>
     /// Обновление заказа
     /// </summary>
     /// <param name="id"> Id заказа </param>
-    /// <param name="orderDto"> Тело обновленного заказа </param>
+    /// <param name="order"> </param>
     /// <param name="cancellationToken"> Токен отмены </param>
+    /// <param name="orderDto"> Тело обновленного заказа </param>
     /// <returns> Обновленный заказ </returns>
     /// <exception cref="ArgumentException"> В случае ошибки валидации </exception>
-    public async Task<OrderResponseDto?> UpdateOrderAsync(Guid id, OrderUpdateDto orderDto, CancellationToken cancellationToken = default)
+    public async Task<Order?> UpdateOrderAsync(Guid id, Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-
-        var order = orderDto.MapToModel();
 
         var orderContext = await GetOrdersAsync(id, cancellationToken);
 
@@ -98,9 +93,7 @@ public class OrderBusinessLogic : IOrderBusinessLogic
         orderContext.Status = order.Status;
         orderContext.OrderLines = order.OrderLines;
 
-        var result = await _orderService.UpdateOrderAsync(orderContext, orderLines, cancellationToken);
-
-        return result.MapToDto();
+        return await _orderService.UpdateOrderAsync(orderContext, orderLines, cancellationToken);
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Ocs.BLL.Dto.Orders;
+using Ocs.Api.Dto.Orders;
+using Ocs.Api.Mapping.Order;
 using Ocs.BLL.Interfaces;
-using Ocs.BLL.Mapping.Order;
 
 namespace Ocs.Api.Controllers;
 
@@ -30,9 +30,9 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> AddOrder(OrderRequestDto orderRequestDto, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var order = await _orderBusiness.AddOrderAsync(orderRequestDto, cancellationToken);
+        var order = await _orderBusiness.AddOrderAsync(orderRequestDto.MapToModel(), cancellationToken);
 
-        return Ok(order);
+        return Ok(order.MapToDto());
     }
 
     [HttpPut("{id:guid}")]
@@ -41,12 +41,12 @@ public class OrderController : ControllerBase
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var order = await _orderBusiness.UpdateOrderAsync(id, updateDto, cancellationToken);
+        var order = await _orderBusiness.UpdateOrderAsync(id, updateDto.MapToModel(), cancellationToken);
 
         if (order == null)
             return NotFound("Заказ не найден");
 
-        return Ok(order);
+        return Ok(order.MapToDto());
     }
 
     [HttpDelete("{id:guid}")]

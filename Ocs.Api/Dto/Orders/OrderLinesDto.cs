@@ -1,3 +1,3 @@
-namespace Ocs.BLL.Dto.Orders;
+namespace Ocs.Api.Dto.Orders;
 
 public record OrderLinesDto(Guid Id, int Qty);

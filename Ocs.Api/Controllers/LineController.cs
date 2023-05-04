@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Ocs.BLL.Dto.Lines;
+using Ocs.Api.Dto.Lines;
+using Ocs.Api.Mapping.Line;
 using Ocs.BLL.Interfaces;
 
 namespace Ocs.Api.Controllers;
@@ -13,19 +14,16 @@ public class LineController : ControllerBase
     public LineController(ILineBusinessLogic lineBusiness) => _lineBusiness = lineBusiness;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll() => Ok(await _lineBusiness.GetLinesAsync());
+    public async Task<IActionResult> GetAll() => Ok((await _lineBusiness.GetLinesAsync()).MapToDto());
 
     [HttpPost]
     public async Task<IActionResult> AddLine(LineRequestDto lineRequestDto)
     {
-        var line = await _lineBusiness.AddLineAsync(new()
-        {
-            Id = lineRequestDto.Id
-        });
+        var line = await _lineBusiness.AddLineAsync(lineRequestDto.MapToModel());
 
         if (line == null)
             return BadRequest("Строка уже существует");
 
-        return Ok(line);
+        return Ok(line.MapToDto());
     }
 }

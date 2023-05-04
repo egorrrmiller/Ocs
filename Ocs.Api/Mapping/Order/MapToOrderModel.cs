@@ -1,8 +1,8 @@
-﻿using Ocs.BLL.Dto.Orders;
+﻿using Ocs.Api.Dto.Orders;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
 
-namespace Ocs.BLL.Mapping.Order;
+namespace Ocs.Api.Mapping.Order;
 
 public static class MapToOrderModel
 {
