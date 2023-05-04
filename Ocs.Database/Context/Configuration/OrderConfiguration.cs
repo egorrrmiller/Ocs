@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
 
 namespace Ocs.Database.Context.Configuration;
@@ -13,7 +14,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .UsingEntity<OrderLines>();
 
         builder.Property(status => status.Status)
-            .IsRequired();
+            .IsRequired()
+            .HasDefaultValue(OrderStatus.New);
 
         builder.Property(dateTime => dateTime.Created)
             .IsRequired();
