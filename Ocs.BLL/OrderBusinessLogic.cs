@@ -1,6 +1,7 @@
 ﻿using Ocs.BLL.Dto.Orders;
 using Ocs.BLL.Interfaces;
 using Ocs.BLL.Mapping.Order;
+using Ocs.Database.Services;
 using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
@@ -19,6 +20,7 @@ public class OrderBusinessLogic : IOrderBusinessLogic
         _lineService = lineService;
     }
 
+    /// <inheritdoc cref="OrderService.GetOrdersAsync" />
     public async Task<Order?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -26,6 +28,12 @@ public class OrderBusinessLogic : IOrderBusinessLogic
         return await _orderService.GetOrdersAsync(id, cancellationToken);
     }
 
+    /// <summary>
+    /// Добавление нового заказа
+    /// </summary>
+    /// <param name="orderDto"> Тело заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> Созданный заказ </returns>
     public async Task<OrderResponseDto?> AddOrderAsync(OrderRequestDto orderDto, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -52,6 +60,14 @@ public class OrderBusinessLogic : IOrderBusinessLogic
         return result.MapToDto();
     }
 
+    /// <summary>
+    /// Обновление заказа
+    /// </summary>
+    /// <param name="id"> Id заказа </param>
+    /// <param name="orderDto"> Тело обновленного заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> Обновленный заказ </returns>
+    /// <exception cref="ArgumentException"> В случае ошибки валидации </exception>
     public async Task<OrderResponseDto?> UpdateOrderAsync(Guid id, OrderUpdateDto orderDto, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -87,6 +103,13 @@ public class OrderBusinessLogic : IOrderBusinessLogic
         return result.MapToDto();
     }
 
+    /// <summary>
+    /// Удалить заказ
+    /// </summary>
+    /// <param name="id"> Id заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> true если удален, false если не удален </returns>
+    /// <exception cref="ArgumentException"> в случае неверного статуса </exception>
     public async Task<bool> DeleteOrderAsync(Guid id, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();

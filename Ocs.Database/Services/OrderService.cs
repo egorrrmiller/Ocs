@@ -11,6 +11,12 @@ public class OrderService : IOrderService
 
     public OrderService(OcsContext context) => _context = context;
 
+    /// <summary>
+    /// Получения заказа по Id
+    /// </summary>
+    /// <param name="id"> Id заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> Заказ с заданным id </returns>
     public async Task<Order?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var order = await _context.Orders.AsNoTracking()
@@ -20,6 +26,12 @@ public class OrderService : IOrderService
         return order ?? null;
     }
 
+    /// <summary>
+    /// Добавление нового заказа
+    /// </summary>
+    /// <param name="order"> Тело заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> Созданный заказ </returns>
     public async Task<Order?> AddOrderAsync(Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -34,6 +46,13 @@ public class OrderService : IOrderService
         return orderUpdate.Entity;
     }
 
+    /// <summary>
+    /// Обновление/редактирование заказа
+    /// </summary>
+    /// <param name="order"> Тело заказа </param>
+    /// <param name="orderLines"> Строки старого заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> Обновленный заказ </returns>
     public async Task<Order?> UpdateOrderAsync(Order order, ICollection<OrderLines>? orderLines,
                                                CancellationToken cancellationToken = default)
     {
@@ -48,6 +67,12 @@ public class OrderService : IOrderService
         return orderUpdate.Entity;
     }
 
+    /// <summary>
+    /// Удаление заказа
+    /// </summary>
+    /// <param name="order"> Тело заказа </param>
+    /// <param name="cancellationToken"> Токен отмены </param>
+    /// <returns> true если удален, false если не удален </returns>
     public async Task<bool> DeleteOrderAsync(Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
