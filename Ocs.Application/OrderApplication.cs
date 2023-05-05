@@ -29,13 +29,15 @@ public class OrderApplication : IOrderApplication
     /// <summary>
     /// Добавление нового заказа
     /// </summary>
-    /// <param name="order"> </param>
+    /// <param name="order"> Тело обновленного заказа </param>
     /// <param name="cancellationToken"> Токен отмены </param>
-    /// <param name="orderDto"> Тело заказа </param>
     /// <returns> Созданный заказ </returns>
     public async Task<Order?> AddOrderAsync(Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        
+        if (order.OrderLines == null)
+            throw new ArgumentException("Строки заказа не могут быть пустыми");
 
         var idExist = await GetOrdersAsync(order.Id, cancellationToken);
 
@@ -60,14 +62,16 @@ public class OrderApplication : IOrderApplication
     /// Обновление заказа
     /// </summary>
     /// <param name="id"> Id заказа </param>
-    /// <param name="order"> </param>
+    /// <param name="order"> Тело обновленного заказа </param>
     /// <param name="cancellationToken"> Токен отмены </param>
-    /// <param name="orderDto"> Тело обновленного заказа </param>
     /// <returns> Обновленный заказ </returns>
     /// <exception cref="ArgumentException"> В случае ошибки валидации </exception>
     public async Task<Order?> UpdateOrderAsync(Guid id, Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+
+        if (order.OrderLines == null)
+            throw new ArgumentException("Строки заказа не могут быть пустыми");
 
         var orderContext = await GetOrdersAsync(id, cancellationToken);
 
