@@ -1,18 +1,18 @@
-﻿using Ocs.BLL.Interfaces;
-using Ocs.Database.Services;
-using Ocs.Database.Services.Interfaces;
+﻿using Ocs.Application.Interfaces;
 using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
+using Ocs.Infrastructure.Services;
+using Ocs.Infrastructure.Services.Interfaces;
 
-namespace Ocs.BLL;
+namespace Ocs.Application;
 
-public class OrderBusinessLogic : IOrderBusinessLogic
+public class OrderApplication : IOrderApplication
 {
     private readonly ILineService _lineService;
 
     private readonly IOrderService _orderService;
 
-    public OrderBusinessLogic(IOrderService orderService, ILineService lineService)
+    public OrderApplication(IOrderService orderService, ILineService lineService)
     {
         _orderService = orderService;
         _lineService = lineService;

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Ocs.Database.Context;
-using Ocs.Database.Services.Interfaces;
 using Ocs.Domain.Models;
+using Ocs.Infrastructure.Context;
+using Ocs.Infrastructure.Services.Interfaces;
 
-namespace Ocs.Database.Services;
+namespace Ocs.Infrastructure.Services;
 
 public class LineService : ILineService
 {

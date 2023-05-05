@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ocs.Domain.Models;
 
-namespace Ocs.Database.Context.Configuration;
+namespace Ocs.Infrastructure.Context.Configuration;
 
 public class LineConfiguration : IEntityTypeConfiguration<Line>
 {

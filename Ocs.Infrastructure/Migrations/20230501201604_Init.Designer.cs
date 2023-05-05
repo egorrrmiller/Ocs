@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Ocs.Database.Context;
+using Ocs.Infrastructure.Context;
 
 #nullable disable
 
-namespace Ocs.Database.Migrations
+namespace Ocs.Infrastructure.Migrations
 {
     [DbContext(typeof(OcsContext))]
     [Migration("20230501201604_Init")]

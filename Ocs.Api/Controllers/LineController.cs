@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ocs.Api.Dto.Lines;
 using Ocs.Api.Mapping.Line;
-using Ocs.BLL.Interfaces;
+using Ocs.Application.Interfaces;
 
 namespace Ocs.Api.Controllers;
 
@@ -9,9 +9,9 @@ namespace Ocs.Api.Controllers;
 [Route("/lines")]
 public class LineController : ControllerBase
 {
-    private readonly ILineBusinessLogic _lineBusiness;
+    private readonly ILineApplication _lineBusiness;
 
-    public LineController(ILineBusinessLogic lineBusiness) => _lineBusiness = lineBusiness;
+    public LineController(ILineApplication lineBusiness) => _lineBusiness = lineBusiness;
 
     [HttpGet]
     public async Task<IActionResult> GetAll() => Ok((await _lineBusiness.GetLinesAsync()).MapToDto());

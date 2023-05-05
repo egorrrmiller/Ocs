@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ocs.Api.Dto.Orders;
 using Ocs.Api.Mapping.Order;
-using Ocs.BLL.Interfaces;
+using Ocs.Application.Interfaces;
 
 namespace Ocs.Api.Controllers;
 
@@ -9,9 +9,9 @@ namespace Ocs.Api.Controllers;
 [Route("/orders")]
 public class OrderController : ControllerBase
 {
-    private readonly IOrderBusinessLogic _orderBusiness;
+    private readonly IOrderApplication _orderBusiness;
 
-    public OrderController(IOrderBusinessLogic orderBusiness) => _orderBusiness = orderBusiness;
+    public OrderController(IOrderApplication orderBusiness) => _orderBusiness = orderBusiness;
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetOrder(Guid id, CancellationToken cancellationToken = default)

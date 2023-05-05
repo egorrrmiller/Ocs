@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Ocs.BLL.Interfaces;
-using Ocs.Database.Context;
-using Ocs.Database.Services.Interfaces;
+using Ocs.Application.Interfaces;
 using Ocs.Domain.Models;
+using Ocs.Infrastructure.Context;
+using Ocs.Infrastructure.Services.Interfaces;
 
-namespace Ocs.BLL;
+namespace Ocs.Application;
 
-public class LineBusinessLogic : ILineBusinessLogic
+public class LineApplication : ILineApplication
 {
     private readonly OcsContext _context;
 
     private readonly ILineService _lineService;
 
-    public LineBusinessLogic(ILineService lineService, OcsContext context)
+    public LineApplication(ILineService lineService, OcsContext context)
     {
         _lineService = lineService;
         _context = context;

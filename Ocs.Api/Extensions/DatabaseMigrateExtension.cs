@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Ocs.Database.Context;
+using Ocs.Infrastructure.Context;
 
 namespace Ocs.Api.Extensions;
 

@@ -1,8 +1,8 @@
 ﻿using Ocs.Domain.Models;
 
-namespace Ocs.BLL.Interfaces;
+namespace Ocs.Application.Interfaces;
 
-public interface ILineBusinessLogic
+public interface ILineApplication
 {
     Task<List<Line>> GetLinesAsync();
 

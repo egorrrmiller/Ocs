@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Ocs.Database.Context.Configuration;
 using Ocs.Domain.Models;
+using Ocs.Infrastructure.Context.Configuration;
 
-namespace Ocs.Database.Context;
+namespace Ocs.Infrastructure.Context;
 
 public class OcsContext : DbContext
 {

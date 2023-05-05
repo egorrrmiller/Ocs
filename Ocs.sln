@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{AC123177-A05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocs.Domain", "Ocs.Domain\Ocs.Domain.csproj", "{E5407E56-B5E9-418F-8E62-E1B5629DE58C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocs.Database", "Ocs.Database\Ocs.Database.csproj", "{AB3306C8-68AA-4406-BE88-C81D30398E1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocs.Infrastructure", "Ocs.Infrastructure\Ocs.Infrastructure.csproj", "{AB3306C8-68AA-4406-BE88-C81D30398E1C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{D51461FD-9A4D-42E0-B572-E4D9D7D97171}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D51461FD-9A4D-42E0-B572-E4D9D7D97171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocs.BLL", "Ocs.BLL\Ocs.BLL.csproj", "{55E31349-D1CA-4E5B-95E3-C28C75EB268B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocs.Application", "Ocs.Application\Ocs.Application.csproj", "{55E31349-D1CA-4E5B-95E3-C28C75EB268B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

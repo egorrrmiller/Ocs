@@ -1,6 +1,6 @@
 using Ocs.Domain.Models;
 
-namespace Ocs.Database.Services.Interfaces;
+namespace Ocs.Infrastructure.Services.Interfaces;
 
 public interface IOrderService
 {

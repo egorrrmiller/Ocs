@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Ocs.Api.Extensions;
 using Ocs.Api.Middlewares;
-using Ocs.BLL;
-using Ocs.BLL.Interfaces;
-using Ocs.Database.Context;
-using Ocs.Database.Services;
-using Ocs.Database.Services.Interfaces;
+using Ocs.Application;
+using Ocs.Application.Interfaces;
+using Ocs.Infrastructure.Context;
+using Ocs.Infrastructure.Services;
+using Ocs.Infrastructure.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContext<OcsContext>(opt => opt.UseNpgsql(connectionString));
 
-builder.Services.AddScoped<IOrderBusinessLogic, OrderBusinessLogic>();
-builder.Services.AddScoped<ILineBusinessLogic, LineBusinessLogic>();
+builder.Services.AddScoped<IOrderApplication, OrderApplication>();
+builder.Services.AddScoped<ILineApplication, LineApplication>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ILineService, LineService>();
 

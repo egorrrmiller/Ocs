@@ -1,8 +1,8 @@
 ﻿using Ocs.Domain.Models;
 
-namespace Ocs.BLL.Interfaces;
+namespace Ocs.Application.Interfaces;
 
-public interface IOrderBusinessLogic
+public interface IOrderApplication
 {
     Task<Order?> GetOrdersAsync(Guid id, CancellationToken cancellationToken = default);
 
