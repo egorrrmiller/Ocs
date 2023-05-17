@@ -13,7 +13,9 @@ public static class DatabaseMigrateExtension
         using var context = serviceScope.ServiceProvider.GetService<OcsContext>();
 
         if (context == null)
+        {
             throw new InvalidOperationException("Database context is NULL at Migrator service.");
+        }
 
         context.Database.Migrate();
     }

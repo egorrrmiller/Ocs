@@ -33,8 +33,10 @@ public class LineApplication : ILineApplication
     {
         var lineExists = await _context.Line.FirstOrDefaultAsync(id => id.Id == line.Id);
 
-        if (lineExists == null)
+        if (lineExists != null)
+        {
             return null;
+        }
 
         return await _lineService.AddLineAsync(line);
     }

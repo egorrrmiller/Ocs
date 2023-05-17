@@ -22,7 +22,9 @@ public class LineController : ControllerBase
         var line = await _lineBusiness.AddLineAsync(lineRequestDto.MapToModel());
 
         if (line == null)
+        {
             return BadRequest("Строка уже существует");
+        }
 
         return Ok(line.MapToDto());
     }

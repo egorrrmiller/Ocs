@@ -21,7 +21,9 @@ public class OrderController : ControllerBase
         var order = await _orderBusiness.GetOrdersAsync(id, cancellationToken);
 
         if (order == null)
+        {
             return NotFound("Заказ не найден");
+        }
 
         return Ok(order.MapToDto());
     }
@@ -44,7 +46,9 @@ public class OrderController : ControllerBase
         var order = await _orderBusiness.UpdateOrderAsync(id, updateDto.MapToModel(), cancellationToken);
 
         if (order == null)
+        {
             return NotFound("Заказ не найден");
+        }
 
         return Ok(order.MapToDto());
     }
@@ -57,7 +61,9 @@ public class OrderController : ControllerBase
         var success = await _orderBusiness.DeleteOrderAsync(id, cancellationToken);
 
         if (!success)
+        {
             return NotFound("Заказ не найден");
+        }
 
         return Ok();
     }

@@ -35,24 +35,32 @@ public class OrderApplication : IOrderApplication
     public async Task<Order?> AddOrderAsync(Order order, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        
+
         if (order.OrderLines == null)
+        {
             throw new ArgumentException("Строки заказа не могут быть пустыми");
+        }
 
         var idExist = await GetOrdersAsync(order.Id, cancellationToken);
 
         if (idExist != null)
+        {
             throw new ArgumentException($"Id {order.Id} зарезервирован. Сгенерируйте новый.");
+        }
 
         var product = await _lineService.GetLinesAsync();
 
         foreach (var line in order.OrderLines)
         {
             if (!product.Exists(x => x.Id == line.LineId))
+            {
                 throw new ArgumentException($"Товара с Id: {line.LineId} не существует");
+            }
 
             if (line.Qty < 1)
+            {
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
+            }
         }
 
         return await _orderService.AddOrderAsync(order, cancellationToken);
@@ -71,25 +79,35 @@ public class OrderApplication : IOrderApplication
         cancellationToken.ThrowIfCancellationRequested();
 
         if (order.OrderLines == null)
+        {
             throw new ArgumentException("Строки заказа не могут быть пустыми");
+        }
 
         var orderContext = await GetOrdersAsync(id, cancellationToken);
 
         var product = await _lineService.GetLinesAsync();
 
         if (orderContext == null)
+        {
             return null;
+        }
 
         if (orderContext.Status is OrderStatus.Paid or OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed)
+        {
             throw new ArgumentException("Заказы в статусах оплачен, передан в доставку, доставлен, завершен нельзя редактировать");
+        }
 
         foreach (var line in order.OrderLines)
         {
             if (!product.Exists(x => x.Id == line.LineId))
+            {
                 throw new ArgumentException($"Товара с Id: {line.LineId} не существует");
+            }
 
             if (line.Qty < 1)
+            {
                 throw new ArgumentException("Количество товаров не может быть меньше 1");
+            }
         }
 
         var orderLines = orderContext.OrderLines;
@@ -114,7 +132,9 @@ public class OrderApplication : IOrderApplication
         var order = await GetOrdersAsync(id, cancellationToken);
 
         if (order == null)
+        {
             return false;
+        }
 
         order.Deleted = order.Status is OrderStatus.SentForDelivery or OrderStatus.Delivered or OrderStatus.Completed
             ? throw new ArgumentException("Заказы в статусах передан в доставку, доставлен, завершен нельзя удалить")

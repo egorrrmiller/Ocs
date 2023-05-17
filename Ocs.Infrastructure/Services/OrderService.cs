@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Ocs.Domain.Enums;
 using Ocs.Domain.Models;
 using Ocs.Infrastructure.Context;
 using Ocs.Infrastructure.Services.Interfaces;
@@ -36,6 +37,7 @@ public class OrderService : IOrderService
     {
         cancellationToken.ThrowIfCancellationRequested();
 
+        order.Status = OrderStatus.New;
         order.Created = DateTime.UtcNow;
 
         var orderUpdate = await _context.Orders.AddAsync(order,
